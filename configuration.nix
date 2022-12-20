@@ -2,7 +2,7 @@
 # -- nix configuration file -- #
 # ---------------------------- #
 
-{ config, pkgs, ... };
+{ config, pkgs, ... }:
 
 {
   imports = [
@@ -16,7 +16,7 @@
 
     # Networking
     # ----------
-    networking.hostname                  = "fakeflake";
+    networking.hostName                  = "fakeflake";
     networking.networkmanager.enable     = true;
     # networking.proxy.default = "https://user:password@proxy.port/";
     # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
@@ -30,7 +30,6 @@
     i18n.defaultLocale = "en_US.UTF-8";
     console = {
       font         = "Lat2-Terminus16";
-      keyMap       = "us";
       useXkbConfig = true;
     };
 
@@ -47,7 +46,7 @@
     services.xserver = {
       enable       = true;
       layout       = "us";
-      xkbOption    = "caps:super";
+      xkbOptions   = "caps:super";
       # Touchpad support
       libinput.enable = true;
     };
