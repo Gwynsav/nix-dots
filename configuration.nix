@@ -9,10 +9,16 @@
       ./hardware-configuration.nix
     ];
 
+    # Enable the usage of flakes, pretty important for Awesome, which
+    # I'll add later.
+	  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
     # Bootloader
     # ----------
-    boot.loader.systemd-boot.enable      = true;
-    boot.loader.efi.canTouchEfiVariables = true;
+    boot.loader = {
+      systemd-boot.enable      = true;
+      efi.canTouchEfiVariables = true;
+    };
 
     # Networking
     # ----------
@@ -23,6 +29,21 @@
     # networking.firewall.enable           = true;
     # networking.firewall.allowedTCPPorts  = [ ... ];
     # networking.firewall.allowedUDPPorts  = [ ... ];
+
+    # Security
+    # --------
+    # doas is a smaller, more secure implementation of sudo.
+    security.sudo.enable = false;
+    security.doas = {
+      enable     = true;
+      extraRules = [
+        {
+          users   = [ "gw" ];
+          keepEnv = true;
+          persist = true;
+        }
+      ];
+    };
 
     # Locale
     # ------
@@ -53,6 +74,7 @@
 
     # Packages
     # --------
+    nixpkgs.config.allowUnfree = true;
     environment.systemPackages = with pkgs; [
       vim
       git
