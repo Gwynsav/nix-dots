@@ -9,6 +9,9 @@
       ./hardware-configuration.nix
     ];
 
+    # TODO:
+    # get XServer + Awesome-git going.
+
     # Enable the usage of flakes, pretty important for Awesome, which
     # I'll add later.
 	  nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -58,14 +61,17 @@
     # -----
     users.users.gw = {
       isNormalUser = true;
-      extraGroups  = [ "wheel" ];
+      # Since doas is bound to gw in specific, there's no need for the
+      # wheel group. This wouldn't be the case for sudo though.
+      # extraGroups  = [ "wheel" ];
       packages     = with pkgs; [ ];
     };
 
     # X Server
     # --------
     services.xserver = {
-      enable       = true;
+      # Disabled for the time being ;)
+      enable       = false;
       layout       = "us";
       xkbOptions   = "caps:super";
       # Touchpad support
