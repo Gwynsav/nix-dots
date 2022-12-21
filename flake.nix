@@ -1,13 +1,19 @@
 {
-  description = "I'm scared T.T";
+  description = "I'm NO LONGER scared >:)";
 
   inputs = {
-    nixpkgs.url  = "github:nixos/nixpkgs/nixos-unstable";
+    master.url   = "github:nixos/nixpkgs/master";
+    stable.url   = "github:nixos/nixpkgs/nixos-22.11";
+    nixos-unstable.url   = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     home-manager = {
       url = github:nix-community/home-manager;
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixpkgs-f2k.url = "github:fortuneteller2k/nixpkgs-f2k";
+    nixpkgs-f2k = {
+      url = "github:fortuneteller2k/nixpkgs-f2k";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, nixpkgs-f2k, ... } @inputs:
@@ -24,7 +30,11 @@
           in (with nixpkgs-f2k.packages.${system}; {
             awesome = awesome-git;
             picom   = picom-git;
-          })
+          }) // {
+            master   = import master { inherit config system; };
+            unstable = import unstable { inherit config system; };
+            stable   = import stable { inherit config system; };
+          }
         )
         nixpkgs-f2k.overlays.default
       ];
