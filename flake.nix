@@ -12,6 +12,11 @@
 
   outputs = { self, nixpkgs, home-manager, nixpkgs-f2k, ... } @inputs:
     let
+      system   = "x86_64-linux";
+      config   = {
+        allowUnfree = true;
+        allowBroken = true;
+      };
       lib      = nixpkgs.lib;
       overlays = with inputs; [
         (final: _:
@@ -26,8 +31,8 @@
     in {
       nixosConfigurations = {
         fakeflake = import ./hosts/fakeflake {
-          inherit config nixpkgs overlays inputs system home-manager;
+          inherit config nixpkgs overlays inputs;
         };
       };
-    }
+    };
 }

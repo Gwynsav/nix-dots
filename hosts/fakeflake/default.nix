@@ -1,14 +1,12 @@
-{ config, nixpkgs, overlays, inputs, home-manager, system, ... }: with nixpkgs;
+{ config, nixpkgs, overlays, inputs, ... }: with nixpkgs;
 
 lib.nixosSystem rec {
-  inherit system;
   
+  system  = "x86_64-linux";
   modules = [
     ./configuration.nix
     {
-      nixpkgs = {
-        inherit overlays config;
-      };
+      nixpkgs = { inherit config overlays; };
     }
   ];
 }
