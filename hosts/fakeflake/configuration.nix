@@ -2,7 +2,7 @@
 # -- nix configuration file -- #
 # ---------------------------- #
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   # Enable the usage of flakes, pretty important for Awesome, which
@@ -71,11 +71,19 @@
   # --------
   services.xserver = {
     # Disabled for the time being ;)
-    enable       = false;
+    enable       = true;
     layout       = "us";
     xkbOptions   = "caps:super";
     # Touchpad support
     libinput.enable = true;
+    displayManager.lightdm.enable = true;
+    windowManager.awesome = {
+      enable     = true;
+      luaModules = lib.attrValues {
+        inherit (pkgs.luaPackages)
+         lgi ldbus luadbi-mysql luaposix;
+      };
+    };
   };
 
   # Packages
@@ -86,6 +94,7 @@
     git
     wget
     firefox
+    neofetch
   ];
 
   # NixOS Settings
