@@ -1,6 +1,7 @@
 -- Catppuccin Colorscheme
 -------------------------
-local wall_dir = os.getenv("HOME") .. "/Pictures/wallpapers/catppuccin/"
+local gfs      = require('gears.filesystem')
+local wall_dir = gfs.get_configuration_dir() .. "themes/walls/catppuccin/"
 local clrs = {}
    clrs.nbg   = "#24273a"
    clrs.lbg   = "#3d4158"

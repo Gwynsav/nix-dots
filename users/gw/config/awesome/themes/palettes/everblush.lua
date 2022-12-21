@@ -1,6 +1,7 @@
 -- Everblush Colorscheme
 ------------------------
-local wall_dir = os.getenv("HOME") .. "/Pictures/wallpapers/everblush/"
+local gfs      = require('gears.filesystem')
+local wall_dir = gfs.get_configuration_dir() .. "themes/walls/everblush/"
 local clrs = {}
    clrs.nbg   = "#141b1e"
    clrs.lbg   = "#232a2d"

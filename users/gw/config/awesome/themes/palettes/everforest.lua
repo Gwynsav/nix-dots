@@ -1,6 +1,7 @@
 -- Everforest Colorscheme
 -------------------------
-local wall_dir = os.getenv("HOME") .. "/Pictures/wallpapers/everforest/"
+local gfs      = require('gears.filesystem')
+local wall_dir = gfs.get_configuration_dir() .. "themes/walls/everforest/"
 local clrs = {}
    clrs.nbg   = "#272e33"
    clrs.lbg   = "#2e383c"
