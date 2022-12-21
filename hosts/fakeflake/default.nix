@@ -8,5 +8,12 @@ lib.nixosSystem rec {
     {
       nixpkgs = { inherit config overlays; };
     }
+    home-manager.nixosModules.home-manager {
+      home-manager.useGlobalPkgs   = false;
+      home-manager.useUserPackages = true;
+      home-manager.users.gw = {
+        imports = [ ../../users/gw/home.nix ];
+      };
+    };
   ];
 }
