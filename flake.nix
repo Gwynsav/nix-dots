@@ -1,5 +1,5 @@
 {
-  description = "I'm scared T.T"
+  description = "I'm scared T.T";
 
   inputs = {
     nixpkgs.url  = "github:nixos/nixpkgs/nixos-unstable";
@@ -24,7 +24,7 @@
         nixpkgs-f2k.overlays.default
       ];
     in {
-      nixosConfiguration = {
+      nixosConfigurations = {
         fakeflake = import ./hosts/fakeflake {
           inherit config nixpkgs overlays inputs system home-manager;
         };
