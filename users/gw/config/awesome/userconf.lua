@@ -12,7 +12,7 @@ local dpi       = beautiful.xresources.apply_dpi
 -- Applications
 ---------------
 -- Define your default applications, mainly used in 'config/keys.lua'
-terminal     = os.getenv("TERM")    or "kitty"
+terminal     = "kitty"
 -- wezterm moment :/, I don't use it, I left this here in case you do.
 term_cmd     = terminal == "wezterm" and " start " or " -e "
 editor       = os.getenv("EDITOR")  or "nvim"

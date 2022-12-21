@@ -79,7 +79,7 @@
     windowManager.awesome = {
       enable     = true;
       luaModules = lib.attrValues {
-        inherit (pkgs.luaPackages)
+        inherit (pkgs.luajitPackages)
          lgi ldbus luadbi-mysql luaposix;
       };
     };
@@ -102,11 +102,11 @@
   # per user configurations at `users/USERNAME/home.nix`
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
-    vim
-    git
-    wget
-    firefox
-    neofetch
+      git
+      neovim
+      lf
+      wget
+      pfetch
   ];
 
   # Fonts
