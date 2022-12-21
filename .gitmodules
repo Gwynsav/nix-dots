@@ -7,3 +7,6 @@
 [submodule "users/gw/config/awesome/modules/color"]
 	path = users/gw/config/awesome/modules/color
 	url = https://github.com/andOrlando/color.git
+[submodule "users/gw/config/awesome/themes/walls"]
+	path = users/gw/config/awesome/themes/walls
+	url = https://github.com/Gwynsav/walls
