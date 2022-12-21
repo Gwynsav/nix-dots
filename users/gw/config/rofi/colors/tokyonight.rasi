@@ -1,0 +1,10 @@
+* {
+	bg:								#1a1b26;
+	fg:								#c0caf5;
+	button:						#252636;
+
+	background-color:		@bg;
+	text-color:				  @fg;
+
+	img: url("img/tokyonight.png");
+}

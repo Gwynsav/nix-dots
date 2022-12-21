@@ -1,0 +1,65 @@
+configuration {
+	modi:				         "drun";
+	font:					       "San Francisco Display 10";
+	display-drun: 		   "";
+	drun-display-format: "{name}";
+	sidebar-mode: 			 false;
+}
+
+@theme "colors/tokyonight.rasi"
+
+window {
+	transparency: 		"real";
+	border-color:			@button;
+	border-radius:		10px;
+	border:						2px;
+	width:			  		33%;
+}
+
+prompt { enabled: false; }
+
+entry {
+	placeholder:			 "Search";
+	placeholder-color: @fg;
+	expand:            true;
+	padding:           1.5%;
+	border-radius:		 8px;
+}
+
+inputbar {
+	children: 			  [ prompt, entry ];
+	background-image: @img;
+	expand:           false;
+	border-radius:    0px 0 8px 8px;
+	padding:          100px 30px 30px 350px;
+}
+
+listview {
+	columns: 					2;
+	lines:	 					4;
+	cycle:   					true;
+	dynamic: 					true;
+	layout:  					vertical;
+	padding: 					30px 30px 30px 30px;
+}
+
+mainbox { children: [ inputbar, listview ]; }
+
+element {
+	orientation:   		vertical;
+	padding:       		1.5% 0% 1.5% 0%;
+	border-radius: 		8px;
+}
+
+element-text {
+	expand:           true;
+	vertical-align:   0.5;
+	margin:           0.5% 3% 0% 3%;
+	background-color: inherit;
+	text-color:       inherit;
+}
+
+element selected {
+	background-color: @button;
+	border-radius:    8px;
+}
