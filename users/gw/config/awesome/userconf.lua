@@ -62,9 +62,9 @@ clr_palette  = "tokyonight"
 -- Your *amazing* profile picture.
 user_avatar  = "/home/guu/Pictures/avatar/TokyonightAvatar.png"
 -- Fonts to be used. MUST leave a space at the end.
-ui_font      = "SF Pro Display "
+ui_font      = "Noto Sans "
 ic_font      = "Material Icons "
-mn_font      = "RobotoMono Nerd Font "
+mn_font      = "CaskaydiaCove Nerd Font "
 
 -- Features
 -----------
@@ -74,7 +74,7 @@ mn_font      = "RobotoMono Nerd Font "
 -- by emitting the 'widget::bar' signal (mod + b) even if disabled.
 bar_enabled  = true
 -- Enables/disables battery metrics.
-battery      = true
+battery      = false
 
 -- Autostart
 ------------

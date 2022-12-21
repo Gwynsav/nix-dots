@@ -1,4 +1,4 @@
-{ config, nixpkgs, overlays, inputs, ... }: with nixpkgs;
+{ config, nixpkgs, overlays, home-manager, inputs, ... }: with nixpkgs;
 
 lib.nixosSystem rec {
   
@@ -14,6 +14,6 @@ lib.nixosSystem rec {
       home-manager.users.gw = {
         imports = [ ../../users/gw/home.nix ];
       };
-    };
+    }
   ];
 }

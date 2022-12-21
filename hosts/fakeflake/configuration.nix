@@ -5,8 +5,7 @@
 { config, pkgs, lib, ... }:
 
 {
-  # Enable the usage of flakes, pretty important for Awesome, which
-  # I'll add later.
+  # Enable the usage of flakes, pretty important for Awesome and Picom.
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   imports = [
@@ -85,9 +84,22 @@
       };
     };
   };
+  
+  # Sound
+  # -----
+  # We do Pipewire 'round here.
+  services.pipewire.enable       = true;
+  services.pipewire.pulse.enable = true;
+  services.pipewire.jack.enable  = true;
+  # We also do some plumbin'
+  # Note: Wireplumber is actually the default session manager. I just
+  # put this here for it to be more explicit.
+  services.pipewire.wireplumber.enable = true;
 
   # Packages
   # --------
+  # Some default system packages. More specific is stuff is found in the
+  # per user configurations at `users/USERNAME/home.nix`
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     vim
@@ -95,6 +107,14 @@
     wget
     firefox
     neofetch
+  ];
+
+  # Fonts
+  # -----
+  fonts.fonts = with pkgs; [
+    noto-fonts
+    material-icons
+    ( nerdfonts.override { fonts = [ "CascadiaCode" ]; } )
   ];
 
   # NixOS Settings

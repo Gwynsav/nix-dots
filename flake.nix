@@ -41,7 +41,7 @@
     in {
       nixosConfigurations = {
         fakeflake = import ./hosts/fakeflake {
-          inherit config nixpkgs overlays inputs;
+          inherit config nixpkgs overlays home-manager inputs;
         };
       };
     };

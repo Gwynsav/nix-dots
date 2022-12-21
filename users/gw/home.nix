@@ -3,7 +3,7 @@
 {
   # Home Manager variables.
   home.username      = "gw";
-  home.homeDirectory = "/home/gw/";
+  home.homeDirectory = "/home/gw";
   # It is not necessary to change this with updates.
   home.stateVersion            = "22.11";
   programs.home-manager.enable = true;
@@ -19,6 +19,7 @@
   # Package Installations.
   nixpkgs.config.allowUnfree = true;
   home.packages = with pkgs; [
+    kitty
     neovim
     lua
     maim
