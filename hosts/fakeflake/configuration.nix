@@ -65,6 +65,7 @@
 
   # Shell
   # -----
+  users.defaultUserShell = pkgs.zsh;
   programs.zsh = {
     enable = true;
     autosuggestions.enable    = true;
@@ -80,34 +81,39 @@
 
   # X Server
   # --------
-  services.xserver = {
-    # Disabled for the time being ;)
-    enable       = true;
-    layout       = "us";
-    xkbOptions   = "caps:super";
-    # Touchpad support
-    libinput.enable = true;
-    displayManager.lightdm.enable = true;
-    windowManager.awesome = {
-      enable     = true;
-      luaModules = lib.attrValues {
-        inherit (pkgs.luaPackages)
-         lgi ldbus luadbi-mysql luaposix;
+  services = {
+    xserver = {
+      enable       = true;
+      layout       = "us";
+      xkbOptions   = "caps:super";
+      # Touchpad support
+      libinput.enable = true;
+      displayManager.lightdm.enable = true;
+      windowManager.awesome = {
+        enable     = true;
+        luaModules = lib.attrValues {
+          inherit (pkgs.luaPackages)
+           lgi ldbus luadbi-mysql luaposix;
+        };
+      };
+    };
+    # Sound
+    # -----
+    # We do Pipewire 'round here.
+    pipewire = {
+      enable       = true;
+      jack.enable  = true;
+      pulse.enable = true;
+      alsa = {
+        enable       = true;
+	support32Bit = true;
       };
     };
   };
-  users.defaultUserShell = pkgs.zsh;
-  
-  # Sound
-  # -----
-  # We do Pipewire 'round here.
-  services.pipewire.enable       = true;
-  services.pipewire.pulse.enable = true;
-  services.pipewire.jack.enable  = true;
-  # We also do some plumbin'
-  # Note: Wireplumber is actually the default session manager. I just
-  # put this here for it to be more explicit.
-  services.pipewire.wireplumber.enable = true;
+  systemd.user.services = {
+    pipewire.wantedBy       = [ "default.target" ];
+    pipewire-pulse.wantedBy = [ "default.target" ];
+  };
 
   # Packages
   # --------
