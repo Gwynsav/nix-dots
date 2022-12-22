@@ -22,6 +22,8 @@ vim.wo.cursorline = true
 vim.g.loaded = 1
 vim.g.loaded_netrwPlugin = 1
 
+vim.cmd [["colorcheme tokyonight-night"]]
+
 -- FIXING SOME TABLINE MOTHERFUCKERY --------------------------------------------
 vim.api.nvim_create_autocmd('BufWinEnter', {
   pattern = '*',

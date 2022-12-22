@@ -13,9 +13,11 @@
   # ----------------------
   xdg.configFile.awesome.source = ./config/awesome;
   xdg.configFile.rofi.source    = ./config/rofi;
+  xdg.configFile.nvim.source    = ./config/nvim;
 
   imports = [
     ( import ./config/kitty { inherit pkgs; } )
+    ( import ./config/nvim  { inherit pkgs config lib; } )
   ];
 
   # Enable some useful programs.

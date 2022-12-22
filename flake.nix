@@ -14,6 +14,10 @@
       url = "github:fortuneteller2k/nixpkgs-f2k";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, nixpkgs-f2k, ... } @inputs:
@@ -36,6 +40,7 @@
             stable   = import stable { inherit config system; };
           }
         )
+	neovim-nightly-overlay.overlay
         nixpkgs-f2k.overlays.default
       ];
     in {

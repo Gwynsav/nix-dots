@@ -12,9 +12,6 @@
     ./hardware-configuration.nix
   ];
 
-  # TODO:
-  # get XServer + Awesome-git going.
-
   # Bootloader
   # ----------
   boot.loader = {

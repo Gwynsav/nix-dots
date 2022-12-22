@@ -4,19 +4,6 @@ require('packer').startup(function()
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate<cr>' }
     use { 'norcalli/nvim-colorizer.lua', require('colorizer').setup() }
     use 'sheerun/vim-polyglot'
-    -- Autocompletion
-    --[[ use { 'ms-jpq/coq_nvim', branch = 'coq', ]]
-    --[[         vim.cmd [[let g:coq_settings = { 'auto_start': 'shut-up' }]]--, ]]
-    --[[         require("coq") ]]
-    --[[     } ]]
-    --[[ use { 'ms-jpq/coq.artifacts', branch = 'artifacts' } ]]
-    --[[ use { 'ms-jpq/coq.thirdparty', branch = '3p', ]]
-    --[[         require("coq_3p") { ]]
-    --[[             { src = "nvimlua", short_name = "nLUA", conf_only = true }, ]]
-    --[[             { src = "vimtex",  short_name = "vTEX" }, ]]
-    --[[             { src = "copilot", short_name = "COP", accept_key = "<c-f>" }, ]]
-    --[[         } ]]
-    --[[     } ]]
     -- Commenting
     use { 'JoosepAlviste/nvim-ts-context-commentstring',
             require('nvim-treesitter.configs').setup {
