@@ -3,7 +3,7 @@
 
 # Shell Configuration
 # -------------------
-set shell      dash      # shell to use
+set shell      bash      # shell to use
 set shellopts  '-eu'     # shell parameters
 set hidden     on        # show hidden files
 set wrapscroll on        # infinite scrolling

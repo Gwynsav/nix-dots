@@ -13,6 +13,10 @@
   # ----------------------
   xdg.configFile.awesome.source = ./config/awesome;
   xdg.configFile.rofi.source    = ./config/rofi;
+  xdg.configFile.lf.source      = ./config/lf;
+  xdg.configFile.zathura.source = ./config/zathura;
+  # xdg.configFile.picom.source   = ./config/picom;
+  # TODO: correct neovim file structure
   xdg.configFile.nvim.source    = ./config/nvim;
 
   imports = [
@@ -33,8 +37,8 @@
     lua
     maim
     xclip
-    playerctl
     xfce.thunar
+    zathura
     picom
     feh
     gnome.gucharmap

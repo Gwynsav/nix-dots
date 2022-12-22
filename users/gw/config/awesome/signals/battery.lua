@@ -5,7 +5,7 @@ local gfs   = gears.filesystem
 -- Battery Fetching and Signal Emitting
 ---------------------------------------
 -- Battery information script
-local battery_script = "dash -c 'echo $(cat /sys/class/power_supply/BAT0/capacity) echo $(cat /sys/class/power_supply/BAT0/status)'"
+local battery_script = "bash -c 'echo $(cat /sys/class/power_supply/BAT0/capacity) echo $(cat /sys/class/power_supply/BAT0/status)'"
 
 -- Emit a battery level signal
 local level_old  = -1
