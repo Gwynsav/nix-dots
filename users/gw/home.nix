@@ -1,5 +1,12 @@
 { config, pkgs, lib, ... }:
 
+let
+  nur = import (builtins.fetchTarball {
+    url    = "https://github.com/nix-community/NUR/archive/master.tar.gz";
+    sha256 = "0my2286bzk8jhmhjvas61fbk31p43s3xd3rz4q6qc5vl1afd3641";
+  }) { inherit pkgs; };
+in
+
 {
   # Home Manager variables
   # ----------------------
@@ -20,8 +27,9 @@
   xdg.configFile.nvim.source    = ./config/nvim;
 
   imports = [
-    ( import ./config/kitty { inherit pkgs; } )
-    ( import ./config/nvim  { inherit pkgs config lib; } )
+    ( import ./config/kitty   { inherit pkgs; } )
+    ( import ./config/nvim    { inherit pkgs config lib; } )
+    ( import ./config/firefox { inherit pkgs config nur; } )
   ];
 
   # Enable some useful programs.
@@ -33,7 +41,6 @@
   # ---------------------
   nixpkgs.config.allowUnfree = true;
   home.packages = with pkgs; [
-    firefox
     lua
     maim
     xclip
