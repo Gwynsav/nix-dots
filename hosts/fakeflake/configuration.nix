@@ -66,6 +66,21 @@
     packages     = with pkgs; [ ];
   };
 
+  # Shell
+  # -----
+  programs.zsh = {
+    enable = true;
+    autosuggestions.enable    = true;
+    syntaxHighlighting.enable = true;
+  };
+  programs.starship = {
+    enable   = true;
+    settings = {
+      format = "$cmd_duration$directory$git_branch$git_status\n[ ](fg:blue) ";
+      git_branch.format = "via [$symbol$branch(:$remote_branch)]($style) ";
+    };
+  };
+
   # X Server
   # --------
   services.xserver = {
@@ -79,11 +94,12 @@
     windowManager.awesome = {
       enable     = true;
       luaModules = lib.attrValues {
-        inherit (pkgs.luajitPackages)
+        inherit (pkgs.luaPackages)
          lgi ldbus luadbi-mysql luaposix;
       };
     };
   };
+  users.defaultUserShell = pkgs.zsh;
   
   # Sound
   # -----
@@ -101,13 +117,21 @@
   # Some default system packages. More specific is stuff is found in the
   # per user configurations at `users/USERNAME/home.nix`
   nixpkgs.config.allowUnfree = true;
-  environment.systemPackages = with pkgs; [
+  environment = {
+    binsh  = "${pkgs.bash}/bin/bash";
+    shells = with pkgs; [ zsh ];
+    systemPackages = with pkgs; [
       git
       neovim
       lf
       wget
       pfetch
-  ];
+    ];
+    variables = {
+      TERM   = "kitty";
+      EDITOR = "nvim";
+    };
+  };
 
   # Fonts
   # -----

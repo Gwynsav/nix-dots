@@ -35,5 +35,6 @@
     xfce.thunar
     picom
     feh
+    gnome.gucharmap
   ];
 }
