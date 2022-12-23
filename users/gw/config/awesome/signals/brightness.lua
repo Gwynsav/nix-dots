@@ -4,7 +4,7 @@ local gears = require('gears')
 -- Bluetooth Fetching and Signal Emitting
 -----------------------------------------
 -- Brightness info script
-local brightness_script = "bash -c 'echo $(($(cat /sys/class/backlight/*backlight*/brightness) * 100 / $(cat /sys/class/backlight/*backlight*/max_brightness)))'"
+local brightness_script = "sh -c 'echo $(($(cat /sys/class/backlight/*backlight*/brightness) * 100 / $(cat /sys/class/backlight/*backlight*/max_brightness)))'"
 
 local level_old = -1
 local function emit_brightness() 
