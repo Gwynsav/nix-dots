@@ -129,7 +129,10 @@ theme.wibar_bg                = theme.bg_normal
 theme.wibar_fg                = theme.fg_normal
 
 -- Awesome icon
-theme.awesome_icon            = require('beautiful.theme_assets').awesome_icon(scaling / 8, theme.fg_normal, theme.bg_normal)
+-- Default Awesome Icon, recolored.
+--[[ theme.awesome_icon            = require('beautiful.theme_assets').awesome_icon(scaling / 8, theme.fg_normal, theme.bg_normal) ]]
+-- NixOS icon.
+theme.awesome_icon            = gc.recolor_image(asset_dir .. "nix.svg",        theme.blu)
 
 -- Taglist
 theme.taglist_font            = mn_font .. scaling / 108
