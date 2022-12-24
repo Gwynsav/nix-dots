@@ -1,5 +1,0 @@
-#!/bin/sh
-
-ftc=$(nmcli networking connectivity help)
-[ "$ftc" = "none" ] && pwr="on" || pwr="off"
-nmcli networking $pwr

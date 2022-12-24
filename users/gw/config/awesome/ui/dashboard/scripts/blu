@@ -1,6 +1,0 @@
-#!/bin/sh
-
-ftc=$(bluetoothctl show | grep Powered:)
-ftc=${ftc##* }
-[ "$ftc" = "yes" ] && pwr="off" || pwr="on"
-bluetoothctl power $pwr
