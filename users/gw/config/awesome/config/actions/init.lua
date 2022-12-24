@@ -8,5 +8,7 @@
 
 require('config.actions.volume')
 require('config.actions.brightness')
-require('config.actions.mus_playback')
+require('config.actions.playerctl')
 require('config.actions.network')
+require('config.actions.bluetooth')
+require('config.actions.language')

@@ -75,21 +75,21 @@ awful.keyboard.append_global_keybindings({
     -- Media
     --------
     -- screenshot (selection, screen)
-    awful.key({ nil,              }, "Print",       function() awful.spawn.with_shell('scsScript sel')  end),
-    awful.key({ modkey,           }, "Print",       function() awful.spawn.with_shell('scsScript scr')  end),
+    awful.key({ nil,              }, "Print",       function() awful.spawn.with_shell('maim -s | xclip -selection clipboard -t image/png')  end),
+    awful.key({ modkey,           }, "Print",       function() awful.spawn.with_shell('maim | xclip -selection clipboard -t image/png')  end),
     -- system volume (up, down, mute)
     awful.key({ nil,           }, "XF86AudioRaiseVolume", function() awful.spawn('wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+') end),
     awful.key({ nil,           }, "XF86AudioLowerVolume", function() awful.spawn('wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-') end),
     awful.key({ nil,           }, "XF86AudioMute",        function() awful.spawn('wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle') end),
     -- song volume (up, down)
-    awful.key({ nil, "Alt"     }, "XF86AudioRaise", function() awful.spawn.with_shell('sngVol up')      end),
-    awful.key({ nil, "Alt"     }, "XF86AudioLower", function() awful.spawn.with_shell('sngVol down')    end),
+    awful.key({ nil, "Alt"     }, "XF86AudioRaise", function() awful.spawn.with_shell('playerctl volume 0.05+')      end),
+    awful.key({ nil, "Alt"     }, "XF86AudioLower", function() awful.spawn.with_shell('playerctl volume 0.05-')    end),
     -- song playback (play, prev, next)
-    awful.key({ nil,           }, "XF86AudioPlay",  function() awful.spawn.with_shell('sngPlay play')   end),
-    awful.key({ nil,           }, "XF86AudioPrev",  function() awful.spawn.with_shell('sngPlay prev')   end),
-    awful.key({ nil,           }, "XF86AudioNext",  function() awful.spawn.with_shell('sngPlay next')   end),
+    awful.key({ nil,           }, "XF86AudioPlay",  function() awful.spawn.with_shell('playerctl play-pause')   end),
+    awful.key({ nil,           }, "XF86AudioPrev",  function() awful.spawn.with_shell('playerctl previous')   end),
+    awful.key({ nil,           }, "XF86AudioNext",  function() awful.spawn.with_shell('playerctl next')   end),
     -- language
-    awful.key({ modkey,           }, "u",           function() awful.spawn.with_shell('lngScript')      end),
+    awful.key({ modkey,           }, "u",           function() awesome.emit_signal("signal::lang")        end),
     -- brightness (up, down)
     awful.key({ nil,    }, "XF86MonBrightnessUp",   function() awful.spawn('brightnessctl -d intel_backlight set 5%+') end),
     awful.key({ nil,    }, "XF86MonBrightnessDown", function() awful.spawn('brightnessctl -d intel_backlight set 5%-') end),
@@ -184,8 +184,6 @@ client.connect_signal("request::default_keybindings", function()
         awful.key({ modkey, "Shift"   }, "s",      function(c) c.sticky = not c.sticky end),
         -- default close window behaviour
         awful.key({ modkey,           }, "q",      function(c) c:kill() end),
-        -- kill window
-        --[[ awful.key({ modkey,           }, "q",      function(c) awful.spawn("kill -9 " .. c.pid) end), ]]
         -- send to master
         awful.key({ modkey,           }, "Tab",    function(c) c:swap(awful.client.getmaster()) end),
     })
