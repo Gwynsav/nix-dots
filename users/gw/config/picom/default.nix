@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, colors, ... }:
 
 {
   services.picom = {
@@ -19,6 +19,9 @@
       glx-no-rebind-pixmap = true;
       xrender-sync-fence   = true;
       use-damage           = true;
+
+      # Fancy shadows
+      shadow-color         = "${nbg}";
     };
 
     wintypes  = {

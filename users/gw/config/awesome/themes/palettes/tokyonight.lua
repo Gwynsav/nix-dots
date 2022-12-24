@@ -1,6 +1,5 @@
 -- Tokyonight Colorscheme
 -------------------------
-local wall_dir = os.getenv("HOME") .. "/Pictures/wallpapers/tokyonight/"
 local clrs = {}
    clrs.nbg   = "#1a1b26"
    clrs.lbg   = "#1e2030"
@@ -22,6 +21,4 @@ local clrs = {}
    clrs.mag_d = "#a589d7"
    clrs.cya   = "#7dcfff"
    clrs.cya_d = "#76bce4"
-
-   clrs.wall  = wall_dir .. "PixelartCity.png"
 return clrs

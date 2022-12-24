@@ -1,6 +1,5 @@
 -- Everblush Colorscheme
 ------------------------
-local wall_dir = os.getenv("HOME") .. "/Pictures/wallpapers/everblush/"
 local clrs = {}
    clrs.nbg   = "#141b1e"
    clrs.lbg   = "#232a2d"
@@ -22,6 +21,4 @@ local clrs = {}
    clrs.mag_d = "#c47fd5"
    clrs.cya   = "#67cbe7"
    clrs.cya_d = "#6cbfbf"
-
-   clrs.wall  = wall_dir .. "Dice.png"
 return clrs

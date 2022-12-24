@@ -1,6 +1,5 @@
 -- Everforest Colorscheme
 -------------------------
-local wall_dir = os.getenv("HOME") .. "/Pictures/wallpapers/everforest/"
 local clrs = {}
    clrs.nbg   = "#272e33"
    clrs.lbg   = "#2e383c"
@@ -22,6 +21,4 @@ local clrs = {}
    clrs.mag_d = "#df69ba"
    clrs.cya   = "#83c092"
    clrs.cya_d = "#35a77c"
-
-   clrs.wall  = wall_dir .. "Flowers.png"
 return clrs

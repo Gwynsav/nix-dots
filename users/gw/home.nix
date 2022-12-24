@@ -5,7 +5,8 @@ let
     url    = "https://github.com/nix-community/NUR/archive/master.tar.gz";
     sha256 = "0my2286bzk8jhmhjvas61fbk31p43s3xd3rz4q6qc5vl1afd3641";
   }) { inherit pkgs; };
-  colors = import ./theme/tokyonight.nix {};
+  colors = import ./theme/decay.nix {};
+  decayce-gtk = with pkgs; callPackage ../../pkgs/decayce-gtk.nix { };
 in
 
 {
@@ -26,7 +27,7 @@ in
   xdg.configFile.lf.source      = ./config/lf;
 
   imports = [
-    # ( import ./config/picom   { inherit pkgs; } )
+    # ( import ./config/picom   { inherit pkgs colors; } )
     ( import ./config/kitty   { inherit pkgs colors; } )
     ( import ./config/zathura { inherit pkgs colors; } )
     ( import ./config/nvim    { inherit pkgs config lib; } )
@@ -38,15 +39,33 @@ in
   fonts.fontconfig.enable    = true;
   services.playerctld.enable = true;
 
+  # GTK Configuration
+  # -----------------
+  gtk = {
+    enable     = true;
+    gtk3.extraConfig.gtk-decoration-layout = "menu:";
+    theme.name = "Decayce";
+    iconTheme  = with pkgs; {
+      name    = "Papirus-Dark";
+      package = papirus-icon-theme;
+    };
+  };
+  home.file = {
+    ".icons/default".source = "${pkgs.phinger-cursors}/share/icons/phinger-cursors";
+  };
+
   # Package Installations
   # ---------------------
   nixpkgs.config.allowUnfree = true;
   home.packages = with pkgs; [
-    lua
     maim
     xclip
     xfce.thunar
     feh
+    dconf
+    decayce-gtk
+    # le ricing tools
     gnome.gucharmap
+    gpick
   ];
 }

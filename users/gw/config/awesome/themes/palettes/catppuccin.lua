@@ -1,6 +1,5 @@
 -- Catppuccin Colorscheme
 -------------------------
-local wall_dir = os.getenv("HOME") .. "/Pictures/wallpapers/catppuccin/"
 local clrs = {}
    clrs.nbg   = "#24273a"
    clrs.lbg   = "#3d4158"
@@ -22,6 +21,4 @@ local clrs = {}
    clrs.mag_d = "#dda1cd"
    clrs.cya   = "#8bd5ca"
    clrs.cya_d = "#76bbb1"
-
-   clrs.wall  = wall_dir .. "Bass.png"
 return clrs

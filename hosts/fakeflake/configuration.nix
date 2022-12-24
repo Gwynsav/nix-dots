@@ -7,6 +7,7 @@
 {
   networking.hostName = "fakeflake";
 
+  boot.kernelPackages = pkgs.linuxPackages_zen;
   environment.systemPackages = with pkgs; [
     brightnessctl
   ];

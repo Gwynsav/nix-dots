@@ -71,7 +71,7 @@
     settings = {
       format = "$cmd_duration$directory$git_branch$git_status\n[ ](fg:blue) ";
       git_branch.format = "via [$symbol$branch(:$remote_branch)]($style) ";
-      command_timeout   = 2;
+      command_timeout   = 5;
     };
   };
 
@@ -114,7 +114,8 @@
   # Packages
   # --------
   # Some default system packages. GUI apps can be found in the
-  # per user configurations at `users/USERNAME/home.nix`
+  # per user configurations at `users/USERNAME/home.nix` and per
+  # host configurations.
   nixpkgs.config.allowUnfree = true;
   environment = {
     binsh  = "${pkgs.bash}/bin/bash";
@@ -126,6 +127,7 @@
       wget
       htop
       pfetch
+      lua
     ];
     variables = {
       TERM   = "kitty";

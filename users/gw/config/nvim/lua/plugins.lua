@@ -29,15 +29,28 @@ require('packer').startup(function()
             end
         }
     -- Bling
-    use { 'folke/tokyonight.nvim',
-            vim.cmd[[colorscheme tokyonight-night]]
-        }
+    -- use { 'folke/tokyonight.nvim',
+    --         vim.cmd[[colorscheme tokyonight-night]]
+    --     }
+    use { 'decaycs/decay.nvim', 
+            as = 'decay',
+            require('decay').setup({
+                    style     = 'decayce',
+                    italics   = {
+                        code     = true,
+                        comments = true
+                    },
+                    nvim_tree = {
+                        contrast = true
+                    }
+                })
+    }
     use { 'nvim-lualine/lualine.nvim',
             require('lualine').setup {
                 options = {
                     component_separators = { left = ' ', right = ' ' },
                     sections_separators  = { left = ' ', right = ' ' },
-                    theme = 'tokyonight',
+                    theme = 'decay',
                 }
             }
         }

@@ -1,6 +1,5 @@
 -- Articblush Colorscheme
 -------------------------
-local wall_dir = os.getenv("HOME") .. "/Pictures/wallpapers/articblush/"
 local clrs = {}
    clrs.nbg   = "#040c16"
    clrs.lbg   = "#1f232b"
@@ -22,6 +21,4 @@ local clrs = {}
    clrs.mag_d = "#ecc6e8"
    clrs.cya   = "#b3ffff"
    clrs.cya_d = "#80ffff"
-
-   clrs.wall  = wall_dir .. "Wave.png"
 return clrs

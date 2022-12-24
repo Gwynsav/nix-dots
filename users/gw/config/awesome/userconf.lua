@@ -53,18 +53,25 @@ notif_size   = scaling / 32
 notif_pos    = "top_right"
 
 -- Theming
+----------
 -- Supported themes:
 --  'catppuccin', 'tokyonight', 'everforest', 'articblush',
---  'everblush', 
+--  'everblush', 'decay'
 -- TODO: MOAR THEMES, theme switcher
+
 -- More themes can be added at 'themes/palettes'.
-clr_palette  = "tokyonight"
+clr_palette  = "decay"
+
 -- Your *amazing* profile picture.
-user_avatar  = "/home/guu/Pictures/avatar/TokyonightAvatar.png"
+user_avatar  = "/home/gw/Pictures/avatar/TokyonightAvatar.png"
+
+-- Your wallpaper directory.
+user_wall    = "/home/gw/Pictures/walls/decay/DecayWave.png"
+
 -- Fonts to be used. MUST leave a space at the end.
-ui_font      = "SF Pro Display "
+ui_font      = "Noto Sans "
 ic_font      = "Material Icons "
-mn_font      = "RobotoMono Nerd Font "
+mn_font      = "CaskaydiaCove Nerd Font "
 
 -- Features
 -----------
@@ -74,7 +81,7 @@ mn_font      = "RobotoMono Nerd Font "
 -- by emitting the 'widget::bar' signal (mod + b) even if disabled.
 bar_enabled  = true
 -- Enables/disables battery metrics.
-battery      = true
+battery      = false
 
 -- Autostart
 ------------

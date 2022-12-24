@@ -43,7 +43,7 @@ theme.cya_d = clrs.cya_d
 -----------
 -- misc
 theme.font                    = ui_font .. "Medium " .. scaling / 108
-theme.wallpaper               = clrs.wall
+theme.wallpaper               = user_wall
 theme.user_avatar             = user_avatar
 
 -- Layouts
@@ -129,7 +129,8 @@ theme.wibar_bg                = theme.bg_normal
 theme.wibar_fg                = theme.fg_normal
 
 -- Awesome icon
-theme.awesome_icon            = require('beautiful.theme_assets').awesome_icon(scaling / 8, theme.fg_normal, theme.bg_normal)
+theme.awesome_icon            = gc.recolor_image(asst_dir .. "nix.svg", theme.blu)
+-- theme.awesome_icon            = require('beautiful.theme_assets').awesome_icon(scaling / 8, theme.fg_normal, theme.bg_normal)
 
 -- Taglist
 theme.taglist_font            = mn_font .. scaling / 108
