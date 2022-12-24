@@ -58,9 +58,11 @@ awesome.connect_signal("signal::volume", function(volume, muted)
 end)
 
 -- Brightness signal
-awesome.connect_signal("signal::brightness", function(brightness)
-    brightness_slider.value = brightness
-end)
+if brightness then
+    awesome.connect_signal("signal::brightness", function(brightness)
+        brightness_slider.value = brightness
+    end)
+end
 
 -- Battery signal
 if battery then
@@ -106,7 +108,8 @@ local function sliderbox()
                         halign = "left",
                         layout = wibox.container.place
                     },
-                    layout = wibox.layout.stack
+                    visible = brightness,
+                    layout  = wibox.layout.stack
                 },
                 {
                     battery_slider,

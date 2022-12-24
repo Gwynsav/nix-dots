@@ -1,11 +1,13 @@
-''
+{ colors }:
+
+with colors; ''
 /* change these variables to get different colors */
 #tabbrowser-tabs {
-	--tab-active-color: #24283b;
-	--tab-inactive-color: #1e2030;
-	--tab-fallback-color-active: #1e2030;
-	--tab-fallback-color-inactive: #24283b;
-	--identityicon-color: #a9b1d6
+	--tab-active-color: ${blk};
+	--tab-inactive-color: ${lbg};
+	--tab-fallback-color-active: ${blk};
+	--tab-fallback-color-inactive: ${lbg};
+	--identityicon-color: ${dfg}
 }
 
 /* change to control tabbar height */
@@ -35,7 +37,7 @@
 #nav-bar,
 #navigator-toolbox {
 	border-width: 0 !important;
-	--toolbar-field-focus-border-color: #414868;
+	--toolbar-field-focus-border-color: ${gry};
 }
 
 /* --- STYLE URLBAR ------------------------------------- */
@@ -61,7 +63,7 @@
 #urlbar-background {
 	border-width: 0 !important;
 	border-radius: 0 !important;
-	background: #24283b !important;
+	background: ${lbg} !important;
 }
 
 #urlbar-input-container {
@@ -120,11 +122,11 @@
 }
 
 :root:not([customizing]) #TabsToolbar{
-	background-color: #24283b;
+	background-color: ${lbg};
 }
 
 :root:not([customizing]) #navigator-toolbox {
-	background-color: #24283b !important;
+	background-color: ${lbg} !important;
 }
 
 #TabsToolbar, .tabbrowser-tab {
@@ -225,7 +227,7 @@ tab {
 }
 
 .tabbrowser-tab:not([selected]) .tab-content{
-	    color: #414868 !important;
+	    color: ${gry} !important;
 }
 /* --- AUTOHIDE URLBAR ---------------------------------- */
 
@@ -248,10 +250,10 @@ tab {
 	min-height: var(--urlbar-height) !important;
 }
 .overflow-button {
-	background: #1e2030 !important;
+	background: ${lbg} !important;
 }
 #PanelUI-menu-button {
-	background: #1e2030 !important;
+	background: ${lbg} !important;
 }
 /* show on toolbox hover */
 /* #titlebar:hover ~ .browser-toolbar, */

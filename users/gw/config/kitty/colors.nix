@@ -1,25 +1,27 @@
-''
+{ colors }:
+
+with colors; ''
 # Tokyonight
-background #1a1b26
-color0     #252636
-color8     #2f3249
-color7     #414868
-color15    #a9b1d6
-foreground #c0caf5
+background ${nbg}
+color0     ${lbg}
+color8     ${blk}
+color7     ${gry}
+color15    ${wht}
+foreground ${nfg}
 
-color1     #f7768e
-color9     #f7768e
-color2     #9ece6a
-color10    #9ece6a
-color3     #e0af68
-color11    #e0af68
-color4     #7aa2f7
-color12    #7aa2f7
-color5     #bb9af7
-color13    #bb9af7
-color6     #7dcfff
-color14    #7dcfff
+color1     ${red_d}
+color9     ${red}
+color2     ${grn_d}
+color10    ${grn}
+color3     ${ylw_d}
+color11    ${ylw}
+color4     ${blu_d}
+color12    ${blu}
+color5     ${mag_d}
+color13    ${mag}
+color6     ${cya_d}
+color14    ${cya}
 
-cursor            #a9b1d6
-cursor_text_color #252636
+cursor            ${dfg}
+cursor_text_color ${lbg}
 ''

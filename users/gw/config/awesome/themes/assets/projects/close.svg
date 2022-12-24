@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="89.709221mm"
+   height="89.76236mm"
+   viewBox="0 0 89.709221 89.76236"
+   version="1.1"
+   id="svg5"
+   sodipodi:docname="close.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="1.5461373"
+     inkscape:cx="90.548235"
+     inkscape:cy="179.80292"
+     inkscape:window-width="1830"
+     inkscape:window-height="1020"
+     inkscape:window-x="72"
+     inkscape:window-y="18"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-38.583904,-92.264023)">
+    <path
+       id="path111"
+       style="fill:#ffffff;stroke-width:0.262884"
+       d="M 83.43853 92.264023 A 44.85461 44.88118 0 0 0 38.583904 137.145 A 44.85461 44.88118 0 0 0 83.43853 182.0265 A 44.85461 44.88118 0 0 0 128.29316 137.145 A 44.85461 44.88118 0 0 0 83.43853 92.264023 z M 102.44616 110.88666 L 110.79397 119.40345 L 92.061777 138.51495 L 110.74022 157.57218 L 102.3919 166.08897 L 83.713449 147.03226 L 65.068076 166.05538 L 56.720265 157.53859 L 75.365638 138.51546 L 56.666004 119.43704 L 65.014332 110.91973 L 83.713966 129.99815 L 102.44616 110.88666 z " />
+    <path
+       id="rect223-0"
+       style="display:none;fill:#ff0000;stroke-width:0.349319"
+       d="m 8.948475,-152.2759 27.771148,-9e-5 -0.36478,27.95203 7.995537,0.10397 0.366134,-28.05579 28.608003,-1.4e-4 -1.59e-4,-7.99653 -28.503486,4e-5 0.369558,-28.31814 -7.995538,-0.10397 -0.370912,28.4219 -27.875664,1.9e-4 z"
+       transform="rotate(134.25232)" />
+  </g>
+</svg>

@@ -113,7 +113,7 @@
 
   # Packages
   # --------
-  # Some default system packages. More specific is stuff is found in the
+  # Some default system packages. GUI apps can be found in the
   # per user configurations at `users/USERNAME/home.nix`
   nixpkgs.config.allowUnfree = true;
   environment = {
@@ -121,9 +121,10 @@
     shells = with pkgs; [ zsh ];
     systemPackages = with pkgs; [
       git
-      neovim
+      vim
       lf
       wget
+      htop
       pfetch
     ];
     variables = {
@@ -140,10 +141,18 @@
     ( nerdfonts.override { fonts = [ "CascadiaCode" ]; } )
   ];
 
+  # Hardware
+  # --------
+  # CUPS support
+  services.printing.enable = true;
+  # Bluetooth
+  hardware.bluetooth = {
+    enable      = true;
+    powerOnBoot = false;
+  };
+
   # NixOS Settings
   # --------------
-  # CUPS support
-  services.printing.enable       = true;
   # Copy configuration.nix to /run/current-system/
   system.copySystemConfiguration = true;
   # Initial OS release.
