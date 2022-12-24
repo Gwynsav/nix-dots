@@ -5,11 +5,7 @@
 require('signals.volume')
 require('signals.network')
 require('signals.bluetooth')
--- If the user has enabled brightness metrics,
--- then emit brightness signal.
-if brightness then
-    require('signals.brightness')
-end
+require('signals.brightness')
 -- If the user has enabled battery metrics,
 -- then emit battery signal.
 if battery then

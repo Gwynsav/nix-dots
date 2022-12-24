@@ -1,7 +1,6 @@
 -- Tokyonight Colorscheme
 -------------------------
-local gfs      = require('gears.filesystem')
-local wall_dir = gfs.get_configuration_dir() .. "themes/walls/tokyonight/"
+local wall_dir = os.getenv("HOME") .. "/Pictures/wallpapers/tokyonight/"
 local clrs = {}
    clrs.nbg   = "#1a1b26"
    clrs.lbg   = "#1e2030"

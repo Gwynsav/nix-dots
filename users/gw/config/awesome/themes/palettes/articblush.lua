@@ -1,7 +1,6 @@
 -- Articblush Colorscheme
 -------------------------
-local gfs      = require('gears.filesystem')
-local wall_dir = gfs.get_configuration_dir() .. "themes/walls/articblush/"
+local wall_dir = os.getenv("HOME") .. "/Pictures/wallpapers/articblush/"
 local clrs = {}
    clrs.nbg   = "#040c16"
    clrs.lbg   = "#1f232b"

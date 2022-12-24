@@ -16,24 +16,54 @@ local helpers   = require('helpers')
 -- Widgets
 ----------
 -- Text buttons thingy
-local function mktxtbtn(action)
-    return wibox.widget {
-        font    = ic_font .. dash_size / 40,
-        align   = "center",
-        widget  = wibox.widget.textbox,
-        button  = {
-            awful.button({}, 1, function()
-                awful.spawn(action) end)
-        }
-    }
-end
+--[[ local function mktxtbtn(action) ]]
+--[[     return wibox.widget { ]]
+--[[         font    = ic_font .. dash_size / 40, ]]
+--[[         align   = "center", ]]
+--[[         widget  = wibox.widget.textbox, ]]
+--[[         button  = { ]]
+--[[             awful.button({}, 1, function() ]]
+--[[                 action end) ]]
+--[[         } ]]
+--[[     } ]]
+--[[ end ]]
 
 -- Buttons
-local dash_network   = mktxtbtn(gfs.get_configuration_dir() .. "ui/dashboard/scripts/net")
+----------
+-- Network
+dash_network = wibox.widget {
+    font    = ic_font .. dash_size / 40,
+    align   = "center",
+    widget  = wibox.widget.textbox,
+    button  = {
+        awful.button({}, 1, function()
+            awesome.emit_signal('network::toggle') end)
+    }
+}
 local dash_net_btn   = helpers.mkbtn(dash_network,   beautiful.blk, beautiful.gry, dash_size / 48)
-local dash_bluetooth = mktxtbtn(gfs.get_configuration_dir() .. "ui/dashboard/scripts/blu")
+
+-- Bluetooth
+dash_bluetooth = wibox.widget {
+    font    = ic_font .. dash_size / 40,
+    align   = "center",
+    widget  = wibox.widget.textbox,
+    button  = {
+        awful.button({}, 1, function()
+            awesome.emit_signal('bluetooth::toggle') end)
+    }
+}
 local dash_blu_btn   = helpers.mkbtn(dash_bluetooth, beautiful.blk, beautiful.gry, dash_size / 48)
-local dash_audio     = mktxtbtn("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")
+
+-- Audio
+dash_audio = wibox.widget {
+    font    = ic_font .. dash_size / 40,
+    align   = "center",
+    widget  = wibox.widget.textbox,
+    button  = {
+        awful.button({}, 1, function()
+            awful.spawn("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle") end)
+    }
+}
 local dash_audio_btn = helpers.mkbtn(dash_audio,     beautiful.blk, beautiful.gry, dash_size / 48)
 
 -- Quick Actions
