@@ -12,7 +12,7 @@ local dpi       = beautiful.xresources.apply_dpi
 -- Applications
 ---------------
 -- Define your default applications, mainly used in 'config/keys.lua'
-terminal     = "kitty"
+terminal     = os.getenv("TERM")    or "kitty"
 -- wezterm moment :/, I don't use it, I left this here in case you do.
 term_cmd     = terminal == "wezterm" and " start " or " -e "
 editor       = os.getenv("EDITOR")  or "nvim"
@@ -62,9 +62,9 @@ clr_palette  = "tokyonight"
 -- Your *amazing* profile picture.
 user_avatar  = "/home/guu/Pictures/avatar/TokyonightAvatar.png"
 -- Fonts to be used. MUST leave a space at the end.
-ui_font      = "Noto Sans "
+ui_font      = "SF Pro Display "
 ic_font      = "Material Icons "
-mn_font      = "CaskaydiaCove Nerd Font "
+mn_font      = "RobotoMono Nerd Font "
 
 -- Features
 -----------
@@ -74,9 +74,7 @@ mn_font      = "CaskaydiaCove Nerd Font "
 -- by emitting the 'widget::bar' signal (mod + b) even if disabled.
 bar_enabled  = true
 -- Enables/disables battery metrics.
-battery      = false
--- Enables/disables brightness metrics.
-brightness   = false
+battery      = true
 
 -- Autostart
 ------------
