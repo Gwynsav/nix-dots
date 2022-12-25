@@ -52,9 +52,7 @@
   # -----
   users.users.gw = {
     isNormalUser = true;
-    # Since doas is bound to gw in specific, there's no need for the
-    # wheel group. This wouldn't be the case for sudo though.
-    # extraGroups  = [ "wheel" ];
+    extraGroups  = [ "wheel" "networkmanager" ];
     packages     = with pkgs; [ ];
   };
 
@@ -84,7 +82,10 @@
       xkbOptions   = "caps:super";
       # Touchpad support
       libinput.enable = true;
-      displayManager.lightdm.enable = true;
+      displayManager.lightdm = {
+        enable     = true;
+        background = ../../stuff/lightdm_bg.png;
+      };
       windowManager.awesome = {
         enable     = true;
         luaModules = lib.attrValues {
@@ -133,6 +134,14 @@
       TERM   = "kitty";
       EDITOR = "nvim";
     };
+  };
+
+  # QT is Weird
+  # -----------
+  qt5 = {
+    enable        = true;
+    platformTheme = "gtk2";
+    style         = "gtk2";
   };
 
   # Fonts
