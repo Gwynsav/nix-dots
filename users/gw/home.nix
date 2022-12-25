@@ -27,13 +27,17 @@ in
   xdg.configFile.lf.source      = ./config/lf;
 
   imports = [
-    ( import ./config/zsh     { inherit config; } )
-    ( import ./config/kitty   { inherit pkgs colors; } )
-    ( import ./config/zathura { inherit pkgs colors; } )
     ( import ./config/nvim    { inherit pkgs config lib; } )
+
+    ( import ./config/zsh     { inherit pkgs config; } )
+    ( import ./config/kitty   { inherit pkgs colors; } )
+    # ( import ./config/picom   { inherit pkgs colors; } )
+
+    ( import ./config/zathura { inherit pkgs colors; } )
     ( import ./config/rofi    { inherit pkgs config lib colors; } )
     ( import ./config/firefox { inherit pkgs config colors nur; } )
-    # ( import ./config/picom   { inherit pkgs colors; } )
+
+    ( import ./config/mpd     { inherit config; } )
   ];
 
   # Enable some useful programs.
@@ -70,7 +74,6 @@ in
     # Environment Variables
     # ---------------------
     sessionVariables = {
-      TERM          = "kitty";
       BROWSER       = "${pkgs.firefox}/bin/firefox";
       EDITOR        = "${pkgs.neovim}/bin/nvim";
       XDG_DATA_HOME = "${config.home.homeDirectory}/.local/share";

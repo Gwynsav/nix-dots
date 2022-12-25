@@ -5,7 +5,8 @@
 { config, pkgs, lib, ... }:
 
 {
-  # Enable the usage of flakes, pretty important for Awesome and Picom.
+  # Enable the usage of flakes, pretty important for git versions
+  # of Awesome and Picom.
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Bootloader
@@ -48,7 +49,7 @@
   # -----
   users.users.gw = {
     isNormalUser = true;
-    extraGroups  = [ "wheel" "networkmanager" ];
+    extraGroups  = [ "wheel" "networkmanager" "audio" ];
     packages     = with pkgs; [ ];
   };
 
@@ -65,9 +66,12 @@
       xkbOptions   = "caps:super";
       # Touchpad support
       libinput.enable = true;
-      displayManager.lightdm = {
-        enable     = true;
-        background = ./stuff/lightdm_bg.png;
+      displayManager = {
+        lightdm = {
+          enable     = true;
+          background = ./stuff/lightdm_bg.png;
+        };
+        defaultSession = "none+awesome";
       };
       windowManager.awesome = {
         enable     = true;

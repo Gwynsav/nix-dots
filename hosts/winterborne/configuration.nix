@@ -29,7 +29,6 @@
   services.xserver = {
     videoDrivers = [ "nvidia" ];
     displayManager = {
-      defaultSession = "none+awesome";
       autoLogin = {
         enable  = true;
         user    = "gw";
