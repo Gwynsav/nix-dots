@@ -18,11 +18,7 @@
   # Networking
   # ----------
   networking.networkmanager.enable     = true;
-  # networking.proxy.default = "https://user:password@proxy.port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-  # networking.firewall.enable           = true;
-  # networking.firewall.allowedTCPPorts  = [ ... ];
-  # networking.firewall.allowedUDPPorts  = [ ... ];
+  networking.firewall.enable           = true;
 
   # Security
   # --------
@@ -59,19 +55,6 @@
   # Shell
   # -----
   users.defaultUserShell = pkgs.zsh;
-  programs.zsh = {
-    enable = true;
-    autosuggestions.enable    = true;
-    syntaxHighlighting.enable = true;
-  };
-  programs.starship = {
-    enable   = true;
-    settings = {
-      format = "$cmd_duration$directory$git_branch$git_status\n[ ](fg:blue) ";
-      git_branch.format = "via [$symbol$branch(:$remote_branch)]($style) ";
-      command_timeout   = 5;
-    };
-  };
 
   # X Server
   # --------
@@ -84,7 +67,7 @@
       libinput.enable = true;
       displayManager.lightdm = {
         enable     = true;
-        background = ../../stuff/lightdm_bg.png;
+        background = ./stuff/lightdm_bg.png;
       };
       windowManager.awesome = {
         enable     = true;
@@ -103,7 +86,7 @@
       pulse.enable = true;
       alsa = {
         enable       = true;
-	support32Bit = true;
+        support32Bit = true;
       };
     };
   };
@@ -130,14 +113,11 @@
       pfetch
       lua
     ];
-    variables = {
-      TERM   = "kitty";
-      EDITOR = "nvim";
-    };
   };
 
-  # QT is Weird
-  # -----------
+  # Qt / GTK
+  # --------
+  programs.dconf.enable = true;
   qt5 = {
     enable        = true;
     platformTheme = "gtk2";
@@ -146,11 +126,14 @@
 
   # Fonts
   # -----
-  fonts.fonts = with pkgs; [
-    noto-fonts
-    material-icons
-    ( nerdfonts.override { fonts = [ "CascadiaCode" ]; } )
-  ];
+  fonts = {
+    fonts = with pkgs; [
+      noto-fonts
+      material-icons
+      ( nerdfonts.override { fonts = [ "CascadiaCode" ]; } )
+    ];
+    fontconfig.enable = true;
+  };
 
   # Hardware
   # --------

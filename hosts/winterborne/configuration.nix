@@ -7,13 +7,9 @@
 {
   networking.hostName = "winterborne";
 
+  # Packages
+  # --------
   boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
-  hardware.opengl = {
-    enable          = true;
-    driSupport      = true;
-    driSupport32Bit = true;
-  };
-
   environment = {
     systemPackages = with pkgs; [
       openrgb
@@ -28,6 +24,8 @@
     };
   };
 
+  # Drivers and Login
+  # -----------------
   services.xserver = {
     videoDrivers = [ "nvidia" ];
     displayManager = {
@@ -38,6 +36,11 @@
         timeout = 0;
       };
       lightdm.greeter = false;
+  };
+  hardware.opengl = {
+    enable          = true;
+    driSupport      = true;
+    driSupport32Bit = true;
   };
 
   imports = [

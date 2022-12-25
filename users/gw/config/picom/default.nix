@@ -7,7 +7,10 @@
     extraArgs = [ "--experimental-backends" ];
 
     shadow    = true;
-    shadowExclude = [ "class_g *?= 'slop'" ];
+    shadowExclude = [ 
+      "class_g *?= 'slop'"
+      "_GTK_FRAME_EXTENTS@:c"
+    ];
 
     fade      = true;
     fadeDelta = 4;
@@ -19,8 +22,10 @@
       glx-no-rebind-pixmap = true;
       xrender-sync-fence   = true;
       use-damage           = true;
+      blur_background      = false;
 
       # Fancy shadows
+      shadow-radius        = 20;
       shadow-color         = "${nbg}";
     };
 

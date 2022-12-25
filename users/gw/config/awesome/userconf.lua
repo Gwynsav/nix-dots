@@ -82,6 +82,8 @@ mn_font      = "CaskaydiaCove Nerd Font "
 bar_enabled  = true
 -- Enables/disables battery metrics.
 battery      = false
+-- Enables/disables brightness metrics.
+brightness   = false
 
 -- Autostart
 ------------
