@@ -24,18 +24,17 @@ in
   # TODO: correct neovim file structure
   xdg.configFile.nvim.source    = ./config/nvim;
   xdg.configFile.awesome.source = ./config/awesome;
-  xdg.configFile.lf.source      = ./config/lf;
 
   imports = [
+    ( import ./config/zsh     { inherit config; } )
     ( import ./config/nvim    { inherit pkgs config lib; } )
+    ( import ./config/kitty   { inherit colors; } )
+    ( import ./config/lf      { } )
 
-    ( import ./config/zsh     { inherit pkgs config; } )
-    ( import ./config/kitty   { inherit pkgs colors; } )
-    # ( import ./config/picom   { inherit pkgs colors; } )
-
-    ( import ./config/zathura { inherit pkgs colors; } )
-    ( import ./config/rofi    { inherit pkgs config lib colors; } )
-    ( import ./config/firefox { inherit pkgs config colors nur; } )
+    ( import ./config/rofi    { inherit config lib colors; } )
+    ( import ./config/firefox { inherit colors nur; } )
+    ( import ./config/zathura { inherit colors; } )
+    # ( import ./config/picom   { inherit colors; } )
 
     ( import ./config/mpd     { inherit config; } )
   ];
@@ -75,6 +74,7 @@ in
     # ---------------------
     sessionVariables = {
       BROWSER       = "${pkgs.firefox}/bin/firefox";
+      VISUAL        = "${pkgs.neovim}/bin/nvim";
       EDITOR        = "${pkgs.neovim}/bin/nvim";
       XDG_DATA_HOME = "${config.home.homeDirectory}/.local/share";
     };
@@ -87,6 +87,10 @@ in
       ".local/bin/fetch" = {
         executable = true;
         text       = import ./bin/fetch.nix { };
+      };
+      ".local/bin/panes" = {
+        executable = true;
+        text       = import ./bin/panes.nix { };
       };
     };
   };

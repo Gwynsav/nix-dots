@@ -2,7 +2,7 @@
 # -- simple, privacy respecting firefox config -- #
 # ----------------------------------------------- #
 
-{ config, pkgs, nur, colors, ... }:
+{ nur, colors, ... }:
 
 {
   programs.firefox = {

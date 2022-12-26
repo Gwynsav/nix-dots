@@ -1,4 +1,4 @@
-{ pkgs, config, lib, colors, ... }:
+{ config, lib, colors, ... }:
 
 {
   programs.rofi = {

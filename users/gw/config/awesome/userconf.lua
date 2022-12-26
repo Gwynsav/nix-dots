@@ -7,6 +7,7 @@
 -- Imports
 ----------
 local beautiful = require('beautiful')
+local defaults  = require('gears.filesystem').get_configuration_dir() .. "themes/assets/default/"
 local dpi       = beautiful.xresources.apply_dpi
 
 -- Applications
@@ -15,8 +16,8 @@ local dpi       = beautiful.xresources.apply_dpi
 terminal     = "kitty"
 -- wezterm moment :/, I don't use it, I left this here in case you do.
 term_cmd     = terminal == "wezterm" and " start " or " -e "
-editor       = "nvim"
-browser      = "firefox"
+editor       = os.getenv('EDITOR')  or "nvim"
+browser      = os.getenv('BROWSER') or "firefox"
 editor_cmd   = terminal .. term_cmd .. editor
 tasks_cmd    = terminal .. term_cmd .. "htop"
 files_cmd    = terminal .. term_cmd .. "lf"
@@ -57,16 +58,15 @@ notif_pos    = "top_right"
 -- Supported themes:
 --  'catppuccin', 'tokyonight', 'everforest', 'articblush',
 --  'everblush', 'decay'
--- TODO: MOAR THEMES, theme switcher
 
 -- More themes can be added at 'themes/palettes'.
 clr_palette  = "decay"
 
+-- Lua doesn't take '~' for home, use os.getenv('HOME').
 -- Your *amazing* profile picture.
-user_avatar  = "/home/gw/Pictures/avatar/TokyonightAvatar.png"
-
--- Your wallpaper directory.
-user_wall    = "/home/gw/Pictures/walls/decay/DecayWave.png"
+user_avatar  = defaults .. "user.png"
+-- Your wallpaper path.
+user_wall    = defaults .. "wall.png"
 
 -- Fonts to be used. MUST leave a space at the end.
 ui_font      = "Noto Sans "
