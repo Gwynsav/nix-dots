@@ -93,9 +93,11 @@ awesome.connect_signal("signal::network", function(is_enabled)
     dash_network.text = is_enabled and "" or ""
 end)
 
-awesome.connect_signal("signal::bluetooth", function(is_enabled)
-    dash_bluetooth.text = is_enabled and "" or ""
-end)
+if bluetoothctl then
+    awesome.connect_signal("signal::bluetooth", function(is_enabled)
+        dash_bluetooth.text = is_enabled and "" or ""
+    end)
+end
 
 awesome.connect_signal("signal::volume", function(level, muted)
     dash_audio.text = muted and "" or ""

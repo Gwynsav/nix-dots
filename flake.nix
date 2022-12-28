@@ -1,5 +1,9 @@
+# ------------------- #
+# -- good_luck.nix -- #
+# ------------------- #
+
 {
-  description = "I'm NO LONGER scared >:)";
+  description = "gw doesn't know flakes";
 
   inputs = {
     master.url   = "github:nixos/nixpkgs/master";

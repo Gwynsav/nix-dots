@@ -49,7 +49,7 @@
   # -----
   users.users.gw = {
     isNormalUser = true;
-    extraGroups  = [ "wheel" "networkmanager" "audio" ];
+    extraGroups  = [ "wheel" "networkmanager" "audio" "libvirtd" ];
     packages     = with pkgs; [ ];
   };
 
@@ -76,8 +76,7 @@
       windowManager.awesome = {
         enable     = true;
         luaModules = lib.attrValues {
-          inherit (pkgs.luaPackages)
-           lgi ldbus luadbi-mysql luaposix;
+          inherit (pkgs.luaPackages) lgi ldbus luadbi-mysql luaposix;
         };
       };
     };
@@ -99,6 +98,13 @@
     pipewire-pulse.wantedBy = [ "default.target" ];
   };
 
+  # Virtualisation
+  # --------------
+  # In virt-manager, add a new connection with default settings.
+  virtualisation = {
+    libvirtd.enable = true;
+  };
+
   # Packages
   # --------
   # Some default system packages. GUI apps can be found in the
@@ -109,14 +115,22 @@
     binsh  = "${pkgs.bash}/bin/bash";
     shells = with pkgs; [ zsh ];
     systemPackages = with pkgs; [
+      cmake
+      gcc
       git
-      vim
-      lf
       wget
-      htop
-      pfetch
       lua
+      maim
+      xclip
+      unzip
+      libnotify
+      virt-manager
     ];
+    variables = {
+      EDITOR  = "${pkgs.neovim}/bin/nvim";
+      VISUAL  = "${pkgs.neovim}/bin/nvim";
+      BROWSER = "${pkgs.firefox}/bin/firefox";
+    };
   };
 
   # Qt / GTK

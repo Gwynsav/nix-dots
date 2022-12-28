@@ -4,7 +4,12 @@
 
 require('signals.volume')
 require('signals.network')
-require('signals.bluetooth')
+
+-- If the user has enabled bluetooth, then
+-- emit a status signal.
+if bluetoothctl then
+    require('signals.bluetooth')
+end
 
 -- If the user has enabled brightness metrics,
 -- then emit brightness signal.

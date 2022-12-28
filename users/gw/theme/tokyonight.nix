@@ -1,6 +1,11 @@
+# ----------------------------- #
+# -- Tokyonight System Theme -- #
+# ----------------------------- #
+
 { }:
 
 rec {
+  dfg   = "#16161e";
   nbg   = "#1a1b26";
   lbg   = "#1e2030";
   blk   = "#24283b";
@@ -21,4 +26,6 @@ rec {
   mag_d = "#a589d7";
   cya   = "#7dcfff";
   cya_d = "#76bce4";
+
+  theme = "tokyonight";
 }

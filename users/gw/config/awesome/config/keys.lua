@@ -3,14 +3,22 @@
 --------------
 
 -- Imports
+----------
+require('awful.autofocus') -- don't remove this, trust me
 local gears     = require('gears')
 local awful     = require('awful')
 local beautiful = require('beautiful')
 
-local menu      = require('ui.menu')
-require('awful.autofocus') -- don't remove this, trust me
-
+-- User preferences
+-------------------
 modkey       = "Mod4"
+-- wezterm moment :/, I don't use it, I left this here in case you do.
+term_cmd     = terminal == "wezterm" and " start " or " -e "
+editor_cmd   = terminal .. term_cmd .. editor
+tasks_cmd    = terminal .. term_cmd .. top
+files_cmd    = terminal .. term_cmd .. files_cli
+
+local menu      = require('ui.menu')
 
 -- Enable sloppy focus, so that focus follows mouse.
 --[[ client.connect_signal("mouse::enter", function(c) ]]
@@ -18,11 +26,13 @@ modkey       = "Mod4"
 --[[ end) ]]
 
 -- Root Window mouse bindings
+-----------------------------
 awful.mouse.append_global_mousebindings({
     awful.button({ }, 3, function () menu.mainmenu:toggle() end),
 })
 
 -- Global key/mouse bindings
+----------------------------
 awful.keyboard.append_global_keybindings({
     -- Utils
     --------
@@ -101,6 +111,9 @@ awful.keyboard.append_global_keybindings({
     -- toggle bar
     awful.key({ modkey,           }, "b",           function() awesome.emit_signal("widget::bar")       end),
 })
+
+-- Tags
+-------
 awful.keyboard.append_global_keybindings({
     -- Switch to tag
     awful.key {
@@ -161,7 +174,9 @@ awful.keyboard.append_global_keybindings({
         end,
     },
 })
--- CLient key/mouse binds
+
+-- Clients (windows)
+--------------------
 client.connect_signal("request::default_mousebindings", function()
     awful.mouse.append_client_mousebindings({
         awful.button({ }, 1, function (c)

@@ -13,14 +13,11 @@ local dpi       = beautiful.xresources.apply_dpi
 -- Applications
 ---------------
 -- Define your default applications, mainly used in 'config/keys.lua'
-terminal     = "kitty"
--- wezterm moment :/, I don't use it, I left this here in case you do.
-term_cmd     = terminal == "wezterm" and " start " or " -e "
-editor       = os.getenv('EDITOR')  or "nvim"
-browser      = os.getenv('BROWSER') or "firefox"
-editor_cmd   = terminal .. term_cmd .. editor
-tasks_cmd    = terminal .. term_cmd .. "htop"
-files_cmd    = terminal .. term_cmd .. "lf"
+terminal     = "xterm"
+editor       = "nvim"
+browser      = "firefox"
+top          = "htop"
+files_cli    = "lf"
 files_gui    = "thunar"
 app_launcher = "rofi -show drun"
 
@@ -84,6 +81,8 @@ bar_enabled  = true
 battery      = false
 -- Enables/disables brightness metrics.
 brightness   = false
+-- Enables/disables bluetooth status.
+bluetoothctl = false
 
 -- Autostart
 ------------

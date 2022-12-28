@@ -1,17 +1,24 @@
+# -------------------------------- #
+# -- Home Manager Configuration -- #
+# -------------------------------- #
+
 { config, pkgs, lib, ... }:
 
 let
+  # Nix User Repository
   nur = import (builtins.fetchTarball {
     url    = "https://github.com/nix-community/NUR/archive/master.tar.gz";
     sha256 = "0my2286bzk8jhmhjvas61fbk31p43s3xd3rz4q6qc5vl1afd3641";
   }) { inherit pkgs; };
-  colors = import ./theme/decay.nix {};
+
+  # Colorscheme
+  colors      = import ./theme/decay.nix {};
   decayce-gtk = with pkgs; callPackage ../../pkgs/decayce-gtk.nix { };
 in
 
 {
   # HomeManager Variables
-  # ----------------------
+  # ---------------------
   home = {
     username      = "gw";
     homeDirectory = "/home/gw";
@@ -22,25 +29,37 @@ in
   # Program Configurations
   # ----------------------
   # TODO: correct neovim file structure
-  xdg.configFile.nvim.source    = ./config/nvim;
+  xdg.configFile.nvim.source    = ./config/shell/nvim;
   xdg.configFile.awesome.source = ./config/awesome;
 
   imports = [
-    ( import ./config/zsh     { inherit config; } )
-    ( import ./config/nvim    { inherit pkgs config lib; } )
-    ( import ./config/kitty   { inherit colors; } )
-    ( import ./config/lf      { } )
+    # Terminal Emulators
+    # By default these dots use XTerm, as Nix installs it as a fallback,
+    # you may however add whichever of the following on top of that.
+    # ( import ./config/terms/kitty      { inherit colors; } )
 
-    ( import ./config/rofi    { inherit config lib colors; } )
-    ( import ./config/firefox { inherit colors nur; } )
-    ( import ./config/zathura { inherit colors; } )
-    # ( import ./config/picom   { inherit colors; } )
+    # Terminal Apps
+    ( import ./config/shell/zsh        { inherit pkgs config; } )
+    ( import ./config/shell/nvim       { inherit pkgs config lib; } )
+    ( import ./config/shell/htop       { inherit config lib; } )
+    ( import ./config/shell/lf         { } )
 
-    ( import ./config/mpd     { inherit config; } )
+    # GUI Apps
+    ( import ./config/utils/rofi       { inherit config lib colors; } )
+    ( import ./config/utils/zathura    { inherit colors; } )
+    ( import ./config/browser/firefox  { inherit colors nur; } )
+    ( import ./config/browser/discocss { inherit colors; } )
+
+    # Music
+    ( import ./config/music/mpd        { inherit config; } )
+    ( import ./config/music/ncmpcpp    { inherit config; } )
+
+    # Miscelaneous
+    ( import ./config/xresources.nix   { inherit colors; } )
+    # ( import ./config/utils/picom      { inherit colors; } )
   ];
 
   # Enable some useful programs.
-  services.playerctld.enable = true;
   programs.mpv.enable        = true;
 
   # GTK Configuration
@@ -60,12 +79,10 @@ in
     # Package Installations
     # ---------------------
     packages = with pkgs; [
-      maim
-      xclip
+      playerctl
       xfce.thunar
       feh
       decayce-gtk
-      # le ricing tools
       gnome.gucharmap
       gpick
     ];
@@ -74,7 +91,6 @@ in
     # ---------------------
     sessionVariables = {
       BROWSER       = "${pkgs.firefox}/bin/firefox";
-      VISUAL        = "${pkgs.neovim}/bin/nvim";
       EDITOR        = "${pkgs.neovim}/bin/nvim";
       XDG_DATA_HOME = "${config.home.homeDirectory}/.local/share";
     };
@@ -102,6 +118,7 @@ in
     userDirs = {
       enable   = true;
       pictures = "${config.home.homeDirectory}/Pictures";
+      music    = "${config.home.homeDirectory}/Music";
     };
   };
 }

@@ -8,7 +8,7 @@ local volume_old = -1
 local muted_old  = -1
 local function volume_emit()
     awful.spawn.easy_async_with_shell(
-        'wpctl get-volume @DEFAULT_AUDIO_SINK@', function(stdout)
+        "bash -c 'wpctl get-volume @DEFAULT_AUDIO_SINK@'", function(stdout)
             local volume     = string.match(stdout:match('(%d%.%d+)')*100, '(%d+)')
             local muted      = stdout:match('MUTED')
             local muted_int  = muted and 1 or 0

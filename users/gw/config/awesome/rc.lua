@@ -7,6 +7,7 @@
 
 -- Imports
 ----------
+pcall(require, 'luarocks.loader')
 local awful     = require('awful')
 local beautiful = require('beautiful')
 local naughty   = require('naughty')

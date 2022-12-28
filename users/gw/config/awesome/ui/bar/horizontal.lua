@@ -179,7 +179,11 @@ screen.connect_signal("request::desktop_decoration", function(s)
                     {
                         {
                             bar_btn_sound,
-                            bar_btn_blue,
+                            {
+                                bar_btn_blue,
+                                visible = bluetoothctl,
+                                layout  = wibox.layout.fixed.horizontal
+                            },
                             bar_btn_net,
                             {
                                 {
@@ -249,14 +253,16 @@ awesome.connect_signal("signal::volume", function(volume, muted)
     end
 end)
 -- Networking signals
-awesome.connect_signal("signal::bluetooth", function(is_enabled)
-    if is_enabled then
-        bar_bluetooth.text   = ""
-        bar_btn_blue.visible = true
-    else
-        bar_btn_blue.visible = false
-    end
-end)
+if bluetoothctl then
+    awesome.connect_signal("signal::bluetooth", function(is_enabled)
+        if is_enabled then
+            bar_bluetooth.text   = ""
+            bar_btn_blue.visible = true
+        else
+            bar_btn_blue.visible = false
+        end
+    end)
+end
 awesome.connect_signal("signal::network", function(is_enabled)
     bar_network.text   = is_enabled and "" or ""
 end)
