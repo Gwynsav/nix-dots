@@ -35,8 +35,9 @@ in
   imports = [
     # Terminal Emulators
     # By default these dots use XTerm, as Nix installs it as a fallback,
-    # you may however add whichever of the following on top of that.
+    # you may still add whichever of the following on top of that.
     # ( import ./config/terms/kitty      { inherit colors; } )
+    ( import ./config/terms/alacritty  { inherit colors; } )
 
     # Terminal Apps
     ( import ./config/shell/zsh        { inherit pkgs config; } )

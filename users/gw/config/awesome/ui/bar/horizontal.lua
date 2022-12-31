@@ -20,14 +20,14 @@ bar_dash = wibox.widget {
     {
         {
             image      = beautiful.awesome_icon,
-            clip_shape = helpers.mkroundedrect(bar_size / 8), 
+            clip_shape = helpers.mkroundedrect(), 
             widget     = wibox.widget.imagebox 
         },
         margins = bar_size / 7,
         widget  = wibox.container.margin
     },
     bg     = beautiful.lbg,
-    shape  = helpers.mkroundedrect(bar_size / 7),
+    shape  = helpers.mkroundedrect(),
     widget = wibox.container.background,
     buttons = {
         awful.button({}, 1, function()
@@ -56,8 +56,8 @@ bar_battery_prog = wibox.widget {
     max_value        = 100,
     forced_width     = (bar_size * 5/4) * aspect_ratio,
     clip             = true,
-    shape            = helpers.mkroundedrect(bar_size / 7),
-    bar_shape        = helpers.mkroundedrect(bar_size / 7),
+    shape            = helpers.mkroundedrect(),
+    bar_shape        = helpers.mkroundedrect(),
     background_color = beautiful.bg_focus,
     color            = beautiful.grn,
     widget           = wibox.widget.progressbar
@@ -66,11 +66,11 @@ bar_battery_text     = status_widget()
 
 -- I don't want to call this a systray... but
 bar_sound     = status_widget("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle") -- Sound muted?
-bar_btn_sound = helpers.mkbtn(bar_sound,     beautiful.nbg, beautiful.lbg, bar_size / 7)
+bar_btn_sound = helpers.mkbtn(bar_sound,     beautiful.nbg, beautiful.lbg)
 bar_network   = status_widget() -- Network status?
-bar_btn_net   = helpers.mkbtn(bar_network,   beautiful.nbg, beautiful.lbg, bar_size / 7)
+bar_btn_net   = helpers.mkbtn(bar_network,   beautiful.nbg, beautiful.lbg)
 bar_bluetooth = status_widget("bluetoothctl power off") -- Bluetooth on?
-bar_btn_blue  = helpers.mkbtn(bar_bluetooth, beautiful.nbg, beautiful.lbg, bar_size / 7)
+bar_btn_blue  = helpers.mkbtn(bar_bluetooth, beautiful.nbg, beautiful.lbg)
 
 -- Create a textclock widget
 bar_clock = {
@@ -87,7 +87,7 @@ bar_clock = {
             widget  = wibox.container.margin
         },
         bg     = beautiful.titlebar_fg_normal,
-        shape  = helpers.mkroundedrect(bar_size / 7),
+        shape  = helpers.mkroundedrect(),
         widget = wibox.container.background
     },
     margins = bar_size / 7,
@@ -106,7 +106,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
         height   = bar_size,
         -- 1.77 represents a 16:9 aspect ratio. 4:3, for reference, is 1.33.
         width    = scaling * 1.77 - beautiful.useless_gap * 3,
-        shape    = helpers.mkroundedrect(bar_size / 6),
+        shape    = helpers.mkroundedrect(),
         margins  = {
             top = beautiful.useless_gap,
         },
@@ -133,7 +133,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
                             right  = bar_size / 3,
                             widget = wibox.container.margin
                         },
-                        shape   = helpers.mkroundedrect(bar_size / 7),
+                        shape   = helpers.mkroundedrect(),
                         bg      = beautiful.lbg,
                         widget  = wibox.container.background
                     },
@@ -186,11 +186,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
                             },
                             bar_btn_net,
                             {
-                                {
-                                    getlayout(s),
-                                    shape  = helpers.mkroundedrect(bar_size / 8),
-                                    widget = wibox.container.background
-                                },
+                                getlayout(s),
                                 margins = bar_size / 6,
                                 widget  = wibox.container.margin
                             },

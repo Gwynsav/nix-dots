@@ -2,8 +2,11 @@
 ----------
 local awful     = require('awful')
 local beautiful = require('beautiful')
+local gears     = require('gears')
+local delayed_call = require("gears.timer").delayed_call
 
 local bling     = require('modules.bling')
+local helpers   = require('helpers')
 
 -- Layouts
 ----------
@@ -37,4 +40,12 @@ awful.screen.connect_for_each_screen(function(s)
         top    = beautiful.useless_gap, 
         bottom = beautiful.useless_gap
     }
+end)
+
+-- Rounded Corners
+------------------
+client.connect_signal("request::manage", function(c)
+    c.shape = function(cr, w, h)
+        gears.shape.rounded_rect(cr, w, h, border_rad)
+    end
 end)

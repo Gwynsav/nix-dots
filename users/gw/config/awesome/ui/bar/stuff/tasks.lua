@@ -36,7 +36,7 @@ local function gettasklist(s)
             layout  = bar_type == "vertical" and wibox.layout.fixed.vertical or wibox.layout.fixed.horizontal
         },
         style   = {
-            shape   = helpers.mkroundedrect(bar_size / 7)
+            shape   = helpers.mkroundedrect()
         },
         widget_template = {
             {

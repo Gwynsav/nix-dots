@@ -1,7 +1,7 @@
 { colors }:
 
 with colors; ''
-# Tokyonight
+# Colorscheme
 background ${nbg}
 color0     ${lbg}
 color8     ${blk}

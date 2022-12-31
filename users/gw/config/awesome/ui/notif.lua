@@ -82,7 +82,7 @@ naughty.connect_signal("request::display", function(n)
             resize = true,
             halign = "center",
             valign = "center",
-            clip_shape    = helpers.mkroundedrect(notif_size / 4),
+            clip_shape    = helpers.mkroundedrect(),
             forced_height = notif_size * 2/3
         },
         right  = notif_size / 4,
@@ -91,7 +91,7 @@ naughty.connect_signal("request::display", function(n)
     naughty.layout.box { 
         notification = n, 
         cursor       = "hand2",
-        shape        = helpers.mkroundedrect(notif_size / 4),
+        shape        = helpers.mkroundedrect(),
         widget_template = {
             {
                 -- Title config

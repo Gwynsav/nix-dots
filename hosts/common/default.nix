@@ -98,11 +98,15 @@
     pipewire-pulse.wantedBy = [ "default.target" ];
   };
 
-  # Virtualisation
+  # Virtualization
   # --------------
   # In virt-manager, add a new connection with default settings.
   virtualisation = {
-    libvirtd.enable = true;
+    libvirtd.enable   = true;
+    # sharedDirectories.shared-dir = {
+    #   source = "/home/gw/shared";
+    #   target = "/mnt/shared";
+    # };
   };
 
   # Packages

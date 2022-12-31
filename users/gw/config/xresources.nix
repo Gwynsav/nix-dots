@@ -29,7 +29,7 @@ with colors; {
       *faceName   : CaskaydiaCove Nerd Font:antialias=true
       *faceSize   : 11
 
-      !!! Xterm Specific
+      !!! Xterm is the fallback terminal
       !! Fixes      
       XTerm.*.bellIsUrgent    : true
       XTerm.*.metaSendsEscape : true

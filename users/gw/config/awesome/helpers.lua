@@ -47,7 +47,7 @@ end
 
 -- create a rounded rect using a custom radius
 function helpers.mkroundedrect(radius)
-    radius = radius or scaling / 135
+    radius = radius or border_rad
     return function (cr, w, h)
         return gears.shape.rounded_rect(cr, w, h, radius)
     end

@@ -11,41 +11,40 @@ local wibox     = require('wibox')
 
 local helpers   = require('helpers')
 
--- User profile support
+-- User profile
 local avatar  = wibox.widget {
-    widget     = wibox.widget.imagebox,
-    image      = beautiful.user_avatar,
-    clip_shape = helpers.mkroundedrect(dash_size / 40),
-    resize     = true,
-    forced_height         = dash_size / 12,
-    forced_width          = dash_size / 12,
-    vertical_fit_policy   = "fit",
-    horizontal_fit_policy = "fit"
+    widget        = wibox.widget.imagebox,
+    image         = beautiful.user_avatar,
+    clip_shape    = gears.shape.circle,
+    resize        = true,
+    forced_height = dash_size / 12,
+    forced_width  = dash_size / 12,
 }
 
 -- Little greeter message
 local greeter = wibox.widget {
     markup = "Welcome, <b>user!</b>",
-    font   = ui_font .. dash_size / 50,
+    font   = ui_font .. dash_size / 48,
     widget = wibox.widget.textbox
 }
 awful.spawn.easy_async_with_shell(
     "whoami", function(stdout)
         name           = stdout:match('(%w+)')
-        greeter.markup = "<b>Hello,</b> " .. name
+        greeter.markup = "<b>Hi,</b> " .. name
     end
 )
 
 -- Get your Uptime
 local uptime = wibox.widget {
-    markup = "Uptime <b>unknown</b>...",
-    font   = ui_font .. dash_size / 64,
+    text   = "Uptime unknown...",
+    font   = ui_font .. dash_size / 96,
     widget = wibox.widget.textbox
 }
+-- oh god, please NixOS add `uptime -p`
 local function get_uptime()
     awful.spawn.easy_async_with_shell(
-        "uptime -p | tr -d 'outep'", function(stdout)
-            uptime.markup = "•<i>" .. stdout .. "</i>"
+        "uptime | sed -E 's/^[^,]*up *//; s/, *[[:digit:]]* users.*//; s/min/minutes/; s/([[:digit:]]+):0?([[:digit:]]+)/\1 hours, \2 minutes/' | sed 's/  / /g' | sed 's/, load average.*//g' | sed 's/, 1 user//g'", function(stdout)
+            uptime.text = "up " .. stdout:gsub("\n", "")
         end)
 end
 gears.timer {
@@ -59,9 +58,8 @@ local function txtbtn(icon, action)
     return wibox.widget {
         {
             text   = icon,
-            font   = ic_font .. dash_size / 40,
-            valign = "center",
-            halign = "center",
+            font   = ic_font .. dash_size / 48,
+            align  = "center",
             widget = wibox.widget.textbox,
             buttons = {
                 awful.button({}, 1, 
@@ -74,37 +72,45 @@ local function txtbtn(icon, action)
 end
 
 local shutdown = txtbtn("", "systemctl poweroff");
-local shutdown_button = helpers.mkbtn(shutdown, beautiful.lbg, beautiful.gry, dash_size / 80);
+local shutdown_button = helpers.mkbtn(shutdown, beautiful.lbg, beautiful.gry);
 local reboot   = txtbtn("", "systemctl reboot");
-local reboot_button   = helpers.mkbtn(reboot,   beautiful.lbg, beautiful.gry, dash_size / 80);
+local reboot_button   = helpers.mkbtn(reboot,   beautiful.lbg, beautiful.gry);
 
 local function user_profile()
     return wibox.widget {
     {
         {
             {
-                avatar,
+                {
+                    avatar,
+                    valign = "center",
+                    layout = wibox.container.place
+                },
                 {
                     {
                         {
                             greeter, 
-                            uptime,
-                            layout = wibox.layout.flex.vertical
+                            {
+                                uptime,
+                                fg     = beautiful.wht,
+                                widget = wibox.container.background
+                            },
+                            spacing = dash_size / 128,
+                            layout  = wibox.layout.flex.vertical
                         },
                         valign = "center",
-                        layout = wibox.container.place
+                        widget = wibox.container.place
                     },
-                    left   = dash_size / 40,
-                    right  = dash_size / 40,
+                    left   = dash_size / 48,
+                    right  = dash_size / 64,
                     widget = wibox.container.margin
                 },
-                valign  = "center",
                 layout  = wibox.layout.fixed.horizontal
             },
-            left   = dash_size / 30,
-            bottom = dash_size / 40,
-            top    = dash_size / 40,
-            right  = dash_size / 30,
+            left   = dash_size / 56,
+            bottom = dash_size / 72,
+            top    = dash_size / 72,
+            right  = dash_size / 64,
             widget = wibox.container.margin
         },
         {
@@ -122,15 +128,14 @@ local function user_profile()
                 right  = dash_size / 110,
                 widget = wibox.container.margin
             },
-            forced_height = dash_size / 10,
             bg     = beautiful.blk,
             widget = wibox.container.background
         },
         layout = wibox.layout.align.vertical
     },
-    shape  = helpers.mkroundedrect(dash_size / 40),
+    shape  = helpers.mkroundedrect(),
     bg     = beautiful.lbg,
-    forced_height = dash_size / 5.3,
+    forced_height = dash_size / 6.4,
     widget = wibox.container.background
 }
 end

@@ -5,6 +5,8 @@ local wibox     = require('wibox')
 local beautiful = require('beautiful')
 local dpi       = beautiful.xresources.apply_dpi
 
+local helpers   = require('helpers')
+
 -- Titlebars
 ------------
 -- Add a titlebar if titlebars_enabled is set to true in the rules.
@@ -46,22 +48,34 @@ client.connect_signal("request::titlebars", function(c)
         },
         { -- Right
             {
-                awful.titlebar.widget.stickybutton(c),
-                -- awful.titlebar.widget.ontopbutton(c),
+                {
+                    awful.titlebar.widget.stickybutton(c),
+                    -- awful.titlebar.widget.ontopbutton(c),
+                    shape  = helpers.mkroundedrect(),
+                    widget = wibox.container.background
+                },
                 right  = button_size, 
                 bottom = button_size, 
                 top    = button_size,
                 widget  = wibox.container.margin
             },
             {
-                awful.titlebar.widget.maximizedbutton(c),
+                {
+                    awful.titlebar.widget.maximizedbutton(c),
+                    shape  = helpers.mkroundedrect(),
+                    widget = wibox.container.background
+                },
                 right  = button_size, 
                 bottom = button_size, 
                 top    = button_size,
                 widget  = wibox.container.margin
             },
             {
-                awful.titlebar.widget.closebutton(c),
+                {
+                    awful.titlebar.widget.closebutton(c),
+                    shape  = helpers.mkroundedrect(),
+                    widget = wibox.container.background
+                },
                 right  = def_button * 2, 
                 bottom = button_size,
                 top    = button_size, 

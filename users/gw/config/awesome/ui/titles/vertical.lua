@@ -5,6 +5,8 @@ local wibox     = require('wibox')
 local beautiful = require('beautiful')
 local dpi       = beautiful.xresources.apply_dpi
 
+local helpers   = require('helpers')
+
 -- Titlebars
 ------------
 -- Add a titlebar if titlebars_enabled is set to true in the rules.
@@ -29,7 +31,11 @@ client.connect_signal("request::titlebars", function(c)
         { -- Left
             {
                 {
-                    awful.titlebar.widget.closebutton(c),
+                    {
+                        awful.titlebar.widget.closebutton(c),
+                        shape  = helpers.mkroundedrect(),
+                        widget = wibox.container.widget
+                    },
                     direction = "east",
                     widget    = wibox.container.rotate
                 },
@@ -40,7 +46,11 @@ client.connect_signal("request::titlebars", function(c)
             },
             {
                 {
-                    awful.titlebar.widget.maximizedbutton(c),
+                    {
+                        awful.titlebar.widget.maximizedbutton(c),
+                        shape  = helpers.mkroundedrect(),
+                        widget = wibox.container.widget
+                    },
                     direction = "east",
                     widget    = wibox.container.rotate
                 },
@@ -51,8 +61,12 @@ client.connect_signal("request::titlebars", function(c)
             },
             {
                 {
-                    -- awful.titlebar.widget.ontopbutton(c),
-                    awful.titlebar.widget.stickybutton(c),
+                    {
+                        awful.titlebar.widget.stickybutton(c),
+                        -- awful.titlebar.widget.ontopbutton(c),
+                        shape  = helpers.mkroundedrect(),
+                        widget = wibox.container.widget
+                    },
                     direction = "east",
                     widget    = wibox.container.rotate
                 },

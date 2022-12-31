@@ -12,7 +12,7 @@ local rubato  = require('modules.rubato')
 
 local multiplier = 1
 if bar_type == "horizontal" then
-    multiplier = aspect_ratio
+    multiplier = aspect_ratio * 0.66
 end
 
 local function gettaglist(s)
@@ -20,7 +20,7 @@ local function gettaglist(s)
         screen = s,
         filter = awful.widget.taglist.filter.all,
         style = {
-            shape = helpers.mkroundedrect(bar_size / 7),
+            shape = helpers.mkroundedrect(),
         },
         layout = {
             spacing = bar_size / 4,

@@ -147,11 +147,8 @@ theme.taglist_fg_urgent       = theme.taglist_bg_urgent
 theme.tasklist_font           = theme.font
 theme.tasklist_font_focus     = ui_font .. "Bold " .. scaling / 108
 theme.tasklist_bg_normal      = theme.bg_normal
-theme.tasklist_fg_normal      = theme.wht
-theme.tasklist_bg_focus       = theme.lbg
-theme.tasklist_fg_focus       = theme.border_color_focus
-theme.tasklist_bg_urgent      = theme.fg_urgent .. "3C" -- This is hex: 3C stands for 60 (%).
-theme.tasklist_fg_urgent      = theme.bg_urgent
+theme.tasklist_bg_focus       = theme.blk
+theme.tasklist_bg_urgent      = theme.fg_urgent
 
 -- Layout
 theme.layout_tile             = gc.recolor_image(awes_dir .. "tilew.png",       theme.fg_normal)

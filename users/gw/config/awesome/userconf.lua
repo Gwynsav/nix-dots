@@ -13,7 +13,7 @@ local dpi       = beautiful.xresources.apply_dpi
 -- Applications
 ---------------
 -- Define your default applications, mainly used in 'config/keys.lua'
-terminal     = "xterm"
+terminal     = "alacritty"
 editor       = "nvim"
 browser      = "firefox"
 top          = "htop"
@@ -33,22 +33,26 @@ app_launcher = "rofi -show drun"
 -- Resolution Scaling (vertical resolution of your monitor)
 scaling      = dpi(1080 * 1)
 aspect_ratio = dpi(16/9)
+
 -- Bar
 bar_size     = scaling / 22.5
 bar_type     = "vertical"
 bar_pos      = "left"
+
 -- Titles
 titles_size  = bar_size / 2
 titles_type  = "horizontal"
 titles_pos   = "top"
--- Dashboard
-dash_size    = scaling * 0.7
+
 -- Notifications
 notif_size   = scaling / 32 
 -- Available positions:
 -- top_left       top_right
 -- bottom_left bottom_right
 notif_pos    = "top_right"
+
+-- Border Radius
+border_rad   = scaling / 135
 
 -- Theming
 ----------
