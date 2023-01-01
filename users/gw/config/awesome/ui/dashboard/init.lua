@@ -40,6 +40,8 @@ dashboardBox:setup {
             user_panel(),
             qk_actions(),
             music(),
+            sliders(),
+            calendar(),
             spacing = dash_size / 80,
             layout  = wibox.layout.fixed.vertical
         },

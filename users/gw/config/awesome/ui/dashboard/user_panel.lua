@@ -41,10 +41,11 @@ local uptime = wibox.widget {
     widget = wibox.widget.textbox
 }
 -- oh god, please NixOS add `uptime -p`
+-- update: (hiPrio procps) :euphoria:
 local function get_uptime()
     awful.spawn.easy_async_with_shell(
-        "uptime | sed -E 's/^[^,]*up *//; s/, *[[:digit:]]* users.*//; s/min/minutes/; s/([[:digit:]]+):0?([[:digit:]]+)/\1 hours, \2 minutes/' | sed 's/  / /g' | sed 's/, load average.*//g' | sed 's/, 1 user//g'", function(stdout)
-            uptime.text = "up " .. stdout:gsub("\n", "")
+        "uptime -p", function(stdout)
+            uptime.text = stdout
         end)
 end
 gears.timer {
@@ -95,7 +96,7 @@ local function user_profile()
                                 fg     = beautiful.wht,
                                 widget = wibox.container.background
                             },
-                            spacing = dash_size / 128,
+                            spacing = - dash_size / 128,
                             layout  = wibox.layout.flex.vertical
                         },
                         valign = "center",

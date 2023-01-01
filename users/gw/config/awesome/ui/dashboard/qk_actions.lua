@@ -76,8 +76,8 @@ end
 awesome.connect_signal("signal::volume", function(level, muted)
     dash_audio.text = muted and "" or ""
 end)
-awesome.connect_signal("signal::microphone", function(level, muted)
-    dash_mic.text = muted and "" or ""
+awesome.connect_signal("signal::microphone", function(mic_level, mic_muted)
+    dash_mic.text = mic_muted and "" or ""
 end)
 
 return qk_actions
