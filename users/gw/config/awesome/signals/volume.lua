@@ -30,9 +30,9 @@ local function microphone_emit()
     awful.spawn.easy_async_with_shell(
         "bash -c 'wpctl get-volume @DEFAULT_AUDIO_SOURCE@'", function(stdout)
             local mic           = string.match(stdout:match('(%d%.%d+)')*100, '(%d+)')
+            local mic_int       = tonumber(mic) -- integer 
             local mic_muted     = stdout:match('MUTED')
-            local mic_muted_int = muted and 1 or 0
-            local mic_int       = tonumber(volume) -- integer 
+            local mic_muted_int = mic_muted and 1 or 0
             if mic_int ~= mic_old or mic_muted_int ~= mic_muted_old then
                 awesome.emit_signal('signal::microphone', mic_int, mic_muted) -- integer
                 mic_old       = mic_int

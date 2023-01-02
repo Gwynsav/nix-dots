@@ -27,17 +27,49 @@ local function status_widget(action)
 end
 
 -- Network
-local dash_network   = status_widget("awesome.emit_signal('network::toggle')")
-local dash_net_btn   = helpers.mkbtn(dash_network, beautiful.blk, beautiful.gry)
+local dash_network   = wibox.widget {
+    font   = ic_font .. dash_size / 56,
+    align  = "center",
+    widget = wibox.widget.textbox,
+}
+dash_network:connect_signal("button::press", function()
+    awful.spawn(
+        [[bash -c "
+            [ $(nmcli networking connectivity check) = "full" ] && nmcli networking off || nmcli networking on
+        "]])
+end)
 -- Bluetooth
-local dash_bluetooth = status_widget("awesome.emit_signal('bluetooth::signal')")
-local dash_blu_btn   = helpers.mkbtn(dash_bluetooth, beautiful.blk, beautiful.gry)
+local dash_bluetooth =  wibox.widget {
+    font   = ic_font .. dash_size / 56,
+    align  = "center",
+    widget = wibox.widget.textbox,
+}
+dash_bluetooth:connect_signal("button::press", function()
+    awful.spawn(
+        [[bash -c "
+            [ $(bluetoothctl show | grep -i powered: | awk '{print $2}') = "yes" ] && bluetoothctl power off || bluetoothctl power on
+        "]])
+end)
 -- Audio
-local dash_audio     = status_widget("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")
-local dash_audio_btn = helpers.mkbtn(dash_audio, beautiful.blk, beautiful.gry)
+local dash_audio     = wibox.widget {
+    font   = ic_font .. dash_size / 56,
+    align  = "center",
+    widget = wibox.widget.textbox,
+    buttons = {
+        awful.button({}, 1, function(action)
+            awful.spawn("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle") end)
+    }
+}
 -- Microphone
-local dash_mic       = status_widget("wpctl set-mute @DEFAULT_AUDIO_SOURCE toggle")
-local dash_mic_btn   = helpers.mkbtn(dash_mic, beautiful.blk, beautiful.gry)
+local dash_mic      = wibox.widget {
+    font   = ic_font .. dash_size / 56,
+    align  = "center",
+    widget = wibox.widget.textbox,
+    buttons = {
+        awful.button({}, 1, function(action)
+            awful.spawn("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle") end)
+    }
+}
 
 -- Quick Actions
 ----------------
@@ -45,10 +77,10 @@ local function qk_actions()
     return wibox.widget {
         {
             {
-                dash_net_btn,
-                bluetoothctl and dash_blu_btn,
-                dash_audio_btn,
-                dash_mic_btn,
+                helpers.mkbtn(dash_network, beautiful.blk, beautiful.grn_d),
+                bluetoothctl and helpers.mkbtn(dash_bluetooth, beautiful.blk, beautiful.blu_d),
+                helpers.mkbtn(dash_audio, beautiful.blk, beautiful.cya_d),
+                helpers.mkbtn(dash_mic, beautiful.blk, beautiful.mag_d),
                 spacing = dash_size / 96,
                 layout  = wibox.layout.flex.horizontal
             },

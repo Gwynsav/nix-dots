@@ -18,9 +18,10 @@ playerctl:connect_signal("metadata",
     if info_first then
         info_first = false
     else
+        local cover = album_path:match('/')
         info_notif = naughty.notify({
-            title = artist, text  = title, 
-            timeout = timeout, image = album_path or user_avatar
+            title = player_name, text  = title .. "\nby " .. artist, 
+            timeout = timeout, image = cover and album_path or user_avatar
         }, info_notif)
     end
 end)

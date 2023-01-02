@@ -3,22 +3,16 @@
 --------------
 
 -- Imports
-----------
-require('awful.autofocus') -- don't remove this, trust me
 local gears     = require('gears')
 local awful     = require('awful')
 local beautiful = require('beautiful')
 
--- User preferences
--------------------
-modkey       = "Mod4"
--- wezterm moment :/, I don't use it, I left this here in case you do.
-term_cmd     = terminal == "wezterm" and " start " or " -e "
-editor_cmd   = terminal .. term_cmd .. editor
-tasks_cmd    = terminal .. term_cmd .. top
-files_cmd    = terminal .. term_cmd .. files_cli
+local playerctl = require('modules.bling').signal.playerctl.lib()
 
 local menu      = require('ui.menu')
+require('awful.autofocus') -- don't remove this, trust me
+
+modkey       = "Mod4"
 
 -- Enable sloppy focus, so that focus follows mouse.
 --[[ client.connect_signal("mouse::enter", function(c) ]]
@@ -26,13 +20,11 @@ local menu      = require('ui.menu')
 --[[ end) ]]
 
 -- Root Window mouse bindings
------------------------------
 awful.mouse.append_global_mousebindings({
     awful.button({ }, 3, function () menu.mainmenu:toggle() end),
 })
 
 -- Global key/mouse bindings
-----------------------------
 awful.keyboard.append_global_keybindings({
     -- Utils
     --------
@@ -85,21 +77,21 @@ awful.keyboard.append_global_keybindings({
     -- Media
     --------
     -- screenshot (selection, screen)
-    awful.key({ nil,              }, "Print",       function() awful.spawn.with_shell('maim -s | xclip -selection clipboard -t image/png')  end),
-    awful.key({ modkey,           }, "Print",       function() awful.spawn.with_shell('maim | xclip -selection clipboard -t image/png')  end),
+    awful.key({ nil,              }, "Print",       function() awful.spawn.with_shell('scsScript sel')  end),
+    awful.key({ modkey,           }, "Print",       function() awful.spawn.with_shell('scsScript scr')  end),
     -- system volume (up, down, mute)
     awful.key({ nil,           }, "XF86AudioRaiseVolume", function() awful.spawn('wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+') end),
     awful.key({ nil,           }, "XF86AudioLowerVolume", function() awful.spawn('wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-') end),
     awful.key({ nil,           }, "XF86AudioMute",        function() awful.spawn('wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle') end),
     -- song volume (up, down)
-    awful.key({ nil, "Alt"     }, "XF86AudioRaise", function() awful.spawn.with_shell('playerctl volume 0.05+')      end),
-    awful.key({ nil, "Alt"     }, "XF86AudioLower", function() awful.spawn.with_shell('playerctl volume 0.05-')    end),
+    awful.key({ nil, "Alt"     }, "XF86AudioRaiseVolume", function() playerctl:set_volume('0.05+')              end),
+    awful.key({ nil, "Alt"     }, "XF86AudioLowerVolume", function() playerctl:set_volume('0.05-')              end),
     -- song playback (play, prev, next)
-    awful.key({ nil,           }, "XF86AudioPlay",  function() awful.spawn.with_shell('playerctl play-pause')   end),
-    awful.key({ nil,           }, "XF86AudioPrev",  function() awful.spawn.with_shell('playerctl previous')   end),
-    awful.key({ nil,           }, "XF86AudioNext",  function() awful.spawn.with_shell('playerctl next')   end),
+    awful.key({ nil,           }, "XF86AudioPlay",  function() playerctl:play_pause()                   end),
+    awful.key({ nil,           }, "XF86AudioPrev",  function() playerctl:previous()                     end),
+    awful.key({ nil,           }, "XF86AudioNext",  function() playerctl:next()                         end),
     -- language
-    awful.key({ modkey,           }, "u",           function() awesome.emit_signal("signal::lang")        end),
+    awful.key({ modkey,           }, "u",           function() awesome.emit_signal("signal::lang")      end),
     -- brightness (up, down)
     awful.key({ nil,    }, "XF86MonBrightnessUp",   function() awful.spawn('brightnessctl -d intel_backlight set 5%+') end),
     awful.key({ nil,    }, "XF86MonBrightnessDown", function() awful.spawn('brightnessctl -d intel_backlight set 5%-') end),
@@ -111,9 +103,6 @@ awful.keyboard.append_global_keybindings({
     -- toggle bar
     awful.key({ modkey,           }, "b",           function() awesome.emit_signal("widget::bar")       end),
 })
-
--- Tags
--------
 awful.keyboard.append_global_keybindings({
     -- Switch to tag
     awful.key {
@@ -174,9 +163,7 @@ awful.keyboard.append_global_keybindings({
         end,
     },
 })
-
--- Clients (windows)
---------------------
+-- CLient key/mouse binds
 client.connect_signal("request::default_mousebindings", function()
     awful.mouse.append_client_mousebindings({
         awful.button({ }, 1, function (c)
@@ -199,6 +186,8 @@ client.connect_signal("request::default_keybindings", function()
         awful.key({ modkey, "Shift"   }, "s",      function(c) c.sticky = not c.sticky end),
         -- default close window behaviour
         awful.key({ modkey,           }, "q",      function(c) c:kill() end),
+        -- kill window
+        --[[ awful.key({ modkey,           }, "q",      function(c) awful.spawn("kill -9 " .. c.pid) end), ]]
         -- send to master
         awful.key({ modkey,           }, "Tab",    function(c) c:swap(awful.client.getmaster()) end),
     })

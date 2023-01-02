@@ -96,7 +96,7 @@ local function calendar()
             {
                 calendar_wdgt,
                 right   = dash_size / 48,
-                top     = dash_size / 48,
+                top     = dash_size / 64,
                 widget  = wibox.container.margin
             },
             {

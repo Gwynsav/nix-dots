@@ -1,6 +1,6 @@
 local naughty = require('naughty')
 
--- Sends a notification every time the content of the volume signal
+-- Sends a notification every time the content of the bluetooth signal
 -- is modified.
 local timeout = 1.5
 local first   = true

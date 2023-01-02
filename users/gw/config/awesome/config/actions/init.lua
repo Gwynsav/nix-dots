@@ -7,8 +7,12 @@
 -- produce an action more often than the signal associated to it is emitted.
 
 require('config.actions.volume')
-require('config.actions.brightness')
 require('config.actions.playerctl')
 require('config.actions.network')
-require('config.actions.bluetooth')
 require('config.actions.language')
+if bluetoothctl then
+    require('config.actions.bluetooth')
+end
+if brightness then
+    require('config.actions.brightness')
+end
