@@ -160,7 +160,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
                             fg     = beautiful.bg_normal,
                             widget = wibox.container.background
                         },
-                        layout = wibox.layout.stack
+                        layout  = wibox.layout.stack
                     },
                     margins = {
                         top    = bar_size / 6,
@@ -228,16 +228,18 @@ awesome.connect_signal("widget::bar", function()
 end)
 
 -- Battery signal
-awesome.connect_signal("signal::battery", function(level, charging)
-    bar_battery_prog.value  = level
-    if charging then
-        bar_battery_text.text = ""
-        bar_battery_text.font = ic_font .. bar_size / 3
-    else
-        bar_battery_text.text = level
-        bar_battery_text.font = ui_font .. "Bold " .. bar_size / 3.33
-    end
-end)
+if battery then
+    awesome.connect_signal("signal::battery", function(level, charging)
+        bar_battery_prog.value  = level
+        if charging then
+            bar_battery_text.text = ""
+            bar_battery_text.font = ic_font .. bar_size / 3
+        else
+            bar_battery_text.text = level
+            bar_battery_text.font = ui_font .. "Bold " .. bar_size / 3.33
+        end
+    end)
+end
 
 -- Sound signal
 awesome.connect_signal("signal::volume", function(volume, muted)

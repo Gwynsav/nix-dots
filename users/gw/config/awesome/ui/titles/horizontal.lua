@@ -3,6 +3,7 @@
 local awful     = require('awful')
 local wibox     = require('wibox')
 local beautiful = require('beautiful')
+local gears     = require('gears')
 local dpi       = beautiful.xresources.apply_dpi
 
 local helpers   = require('helpers')
@@ -29,6 +30,47 @@ client.connect_signal("request::titlebars", function(c)
         })
     top_titlebar.widget = {
         { -- Left
+            {
+                {
+                    awful.titlebar.widget.stickybutton(c),
+                    -- awful.titlebar.widget.ontopbutton(c),
+                    shape  = helpers.mkroundedrect(),
+                    widget = wibox.container.background
+                },
+                left    = def_button * 2, 
+                bottom  = button_size, 
+                top     = button_size,
+                widget  = wibox.container.margin
+            },
+            {
+                {
+                    awful.titlebar.widget.maximizedbutton(c),
+                    shape  = helpers.mkroundedrect(),
+                    widget = wibox.container.background
+                },
+                left    = button_size, 
+                bottom  = button_size, 
+                top     = button_size,
+                widget  = wibox.container.margin
+            },
+            {
+                {
+                    awful.titlebar.widget.closebutton(c),
+                    shape  = helpers.mkroundedrect(),
+                    widget = wibox.container.background
+                },
+                left    = button_size, 
+                bottom  = button_size,
+                top     = button_size, 
+                widget  = wibox.container.margin
+            },
+            layout      = wibox.layout.fixed.horizontal
+        },
+        { -- Middle
+            buttons     = buttons,
+            layout      = wibox.layout.flex.horizontal
+        },
+        { -- Right
             --[[ { -- Title ]]
             --[[     {  ]]
             --[[         widget = awful.titlebar.widget.titlewidget(c), ]]
@@ -40,47 +82,6 @@ client.connect_signal("request::titlebars", function(c)
             --[[     widget  = wibox.container.margin ]]
             --[[ }, ]]
             buttons     = buttons,
-            layout      = wibox.layout.fixed.horizontal
-        },
-        { -- Middle
-            buttons     = buttons,
-            layout      = wibox.layout.flex.horizontal
-        },
-        { -- Right
-            {
-                {
-                    awful.titlebar.widget.stickybutton(c),
-                    -- awful.titlebar.widget.ontopbutton(c),
-                    shape  = helpers.mkroundedrect(),
-                    widget = wibox.container.background
-                },
-                right  = button_size, 
-                bottom = button_size, 
-                top    = button_size,
-                widget  = wibox.container.margin
-            },
-            {
-                {
-                    awful.titlebar.widget.maximizedbutton(c),
-                    shape  = helpers.mkroundedrect(),
-                    widget = wibox.container.background
-                },
-                right  = button_size, 
-                bottom = button_size, 
-                top    = button_size,
-                widget  = wibox.container.margin
-            },
-            {
-                {
-                    awful.titlebar.widget.closebutton(c),
-                    shape  = helpers.mkroundedrect(),
-                    widget = wibox.container.background
-                },
-                right  = def_button * 2, 
-                bottom = button_size,
-                top    = button_size, 
-                widget  = wibox.container.margin
-            },
             layout      = wibox.layout.fixed.horizontal
         },
         layout = wibox.layout.align.horizontal

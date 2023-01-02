@@ -14,8 +14,8 @@ local dpi       = beautiful.xresources.apply_dpi
 ---------------
 -- Define your default applications, mainly used in 'config/keys.lua'
 terminal     = "alacritty"
-editor       = "nvim"
-browser      = "firefox"
+editor       = os.getenv("EDITOR")  or "nvim"
+browser      = os.getenv("BROWSER") or "firefox"
 top          = "htop"
 files_cli    = "lf"
 files_gui    = "thunar"

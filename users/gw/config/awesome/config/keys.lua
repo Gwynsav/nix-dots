@@ -9,6 +9,11 @@ local beautiful = require('beautiful')
 
 local playerctl = require('modules.bling').signal.playerctl.lib()
 
+term_cmd        = terminal == "wezterm" and " start " or " -e "
+editor_cmd      = terminal .. term_cmd .. editor
+files_cmd       = terminal .. term_cmd .. files_cli
+tasks_cmd       = terminal .. term_cmd .. top
+
 local menu      = require('ui.menu')
 require('awful.autofocus') -- don't remove this, trust me
 
@@ -21,7 +26,7 @@ modkey       = "Mod4"
 
 -- Root Window mouse bindings
 awful.mouse.append_global_mousebindings({
-    awful.button({ }, 3, function () menu.mainmenu:toggle() end),
+    awful.button({ }, 3, function() menu.mainmenu:toggle() end),
 })
 
 -- Global key/mouse bindings
@@ -40,7 +45,7 @@ awful.keyboard.append_global_keybindings({
     -- Task Manager
     awful.key({ modkey,           }, "Escape",      function() awful.spawn(tasks_cmd) end),
     -- Awesome Menu
-    awful.key({ modkey,           }, "w",           function() mymainmenu:show() end),
+    awful.key({ modkey,           }, "w",           function() menu.mainmenu:toggle() end),
     -- Application launcher
     awful.key({ modkey            }, "p",           function() awful.spawn(app_launcher) end),
 

@@ -38,15 +38,6 @@ require('config')
 -- Contains the UI configuration.
 require('ui')
 
--- Autorun 
-----------
--- These run once.
-awful.spawn.once("dash -c 'sudo tlp start'")
--- These run in the background.
-awful.spawn.once("picom")
-awful.spawn.once("mpd")
-awful.spawn.once("mpDris2")
-
 -- Garbage Collection
 ---------------------
 -- Utilize lua garbage cleanup, helps with resource usage.

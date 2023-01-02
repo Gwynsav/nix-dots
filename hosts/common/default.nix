@@ -119,6 +119,7 @@
     binsh  = "${pkgs.bash}/bin/bash";
     shells = with pkgs; [ zsh ];
     systemPackages = with pkgs; [
+      (hiPrio procps)
       cmake
       gcc
       git
