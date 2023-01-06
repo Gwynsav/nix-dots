@@ -1,9 +1,3 @@
-[submodule "users/gw/config/awesome/modules/rubato"]
-	path = users/gw/config/awesome/modules/rubato
-	url = https://github.com/andOrlando/rubato.git
-[submodule "users/gw/config/awesome/modules/bling"]
-	path = users/gw/config/awesome/modules/bling
-	url = https://github.com/BlingCorp/bling.git
-[submodule "users/gw/config/awesome/modules/color"]
-	path = users/gw/config/awesome/modules/color
-	url = https://github.com/andOrlando/color.git
+[submodule "users/gw/config/gwdawful"]
+	path = users/gw/config/gwdawful
+	url = https://github.com/Gwynsav/gwdawful
