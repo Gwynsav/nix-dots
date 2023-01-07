@@ -30,7 +30,7 @@ in
   # ----------------------
   # TODO: correct neovim file structure
   xdg.configFile.nvim.source    = ./config/shell/nvim;
-  xdg.configFile.awesome.source = ./config/gwdawful;
+  xdg.configFile.awesome.source = ./config/awesome;
 
   imports = [
     # Terminal Emulators
@@ -40,13 +40,13 @@ in
     ( import ./config/terms/alacritty  { inherit colors; } )
 
     # Terminal Apps
-    ( import ./config/shell/zsh        { inherit pkgs config; } )
-    ( import ./config/shell/nvim       { inherit pkgs config lib; } )
-    ( import ./config/shell/htop       { inherit config lib; } )
+    ( import ./config/shell/zsh        { inherit config; } )
+    ( import ./config/shell/nvim       { inherit pkgs; } )
+    ( import ./config/shell/htop       { inherit config; } )
     ( import ./config/shell/lf         { } )
 
     # GUI Apps
-    ( import ./config/utils/rofi       { inherit config lib colors; } )
+    ( import ./config/utils/rofi       { inherit config colors; } )
     ( import ./config/utils/zathura    { inherit colors; } )
     ( import ./config/browser/firefox  { inherit colors nur; } )
     ( import ./config/browser/discocss { inherit colors; } )

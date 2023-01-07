@@ -2,7 +2,7 @@
 # -- Application Launcher Configuration -- #
 # ---------------------------------------- #
 
-{ config, lib, colors, ... }:
+{ config, colors, ... }:
 
 {
   programs.rofi = {
@@ -14,6 +14,6 @@
       drun-display-format = "{name}";
       sidebar-mode        = false;
     };
-    theme       = import ./theme.nix { inherit config lib colors; };
+    theme       = import ./theme.nix { inherit config colors; };
   };
 }

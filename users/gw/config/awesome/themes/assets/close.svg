@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="89.709mm"
+   height="89.762mm"
+   version="1.1"
+   viewBox="0 0 89.709 89.762"
+   id="svg76"
+   sodipodi:docname="close.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs80" />
+  <sodipodi:namedview
+     id="namedview78"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="2.475992"
+     inkscape:cx="169.62898"
+     inkscape:cy="169.62898"
+     inkscape:window-width="1854"
+     inkscape:window-height="1044"
+     inkscape:window-x="60"
+     inkscape:window-y="6"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg76" />
+  <g
+     transform="translate(-38.584 -92.264)"
+     id="g74">
+    <path
+       d="m83.439 92.264a44.855 44.881 0 0 0-44.855 44.881 44.855 44.881 0 0 0 44.855 44.882 44.855 44.881 0 0 0 44.855-44.882 44.855 44.881 0 0 0-44.855-44.881zm19.008 18.623 8.3478 8.5168-18.732 19.112 18.678 19.057-8.3483 8.5168-18.678-19.057-18.645 19.023-8.3478-8.5168 18.645-19.023-18.7-19.078 8.3483-8.5173 18.7 19.078 18.732-19.111z"
+       fill="#fff"
+       stroke-width=".26288"
+       id="path70" />
+  </g>
+</svg>

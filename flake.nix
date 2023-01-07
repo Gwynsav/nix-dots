@@ -6,8 +6,8 @@
   description = "gw doesn't know flakes";
 
   inputs = {
-    master.url   = "github:nixos/nixpkgs/master";
-    stable.url   = "github:nixos/nixpkgs/nixos-22.11";
+    master.url           = "github:nixos/nixpkgs/master";
+    stable.url           = "github:nixos/nixpkgs/nixos-22.11";
     nixos-unstable.url   = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     home-manager = {
@@ -25,14 +25,13 @@
     nur.url = "github:nix-community/NUR";
   };
 
-  outputs = { self, nixpkgs, home-manager, nixpkgs-f2k, ... } @inputs:
-    let
-      system   = "x86_64-linux";
+  outputs = { self, nixpkgs, home-manager, ... } @inputs:
+    with nixpkgs.lib; let
+      # system   = "x86_64-linux";
       config   = {
         allowUnfree = true;
         allowBroken = true;
       };
-      lib      = nixpkgs.lib;
       overlays = with inputs; [
         (final: _:
           let inherit (final) system;
@@ -40,20 +39,28 @@
             awesome = awesome-git;
             picom   = picom-git;
           }) // {
-            master   = import master { inherit config system; };
+            master   = import master   { inherit config system; };
+            stable   = import stable   { inherit config system; };
             unstable = import unstable { inherit config system; };
-            stable   = import stable { inherit config system; };
           }
         )
-	neovim-nightly-overlay.overlay
+        neovim-nightly-overlay.overlay
         nixpkgs-f2k.overlays.default
-	nur.overlay
+        nur.overlay
       ];
     in {
       nixosConfigurations = {
-        fakeflake = import ./hosts/fakeflake {
-          inherit config nixpkgs overlays home-manager inputs;
-        };
+        fakeflake =
+          import ./hosts/fakeflake
+          { inherit config nixpkgs overlays inputs; };
+        winterborne = 
+          import ./hosts/winterborne
+          { inherit config nixpkgs overlays inputs; };
+      };
+      homeConfigurations  = {
+        gw =
+          import ./users/gw
+          { inherit config nixpkgs overlays home-manager inputs; };
       };
     };
 }

@@ -2,7 +2,7 @@
 # -- desktop configuration file -- #
 # -------------------------------- #
 
-{ config, pkgs, lib, ... }:
+{ pkgs, ... }:
 
 {
   networking.hostName = "winterborne";

@@ -2,7 +2,7 @@
 # -- Terminal Shell Configuration -- #
 # ---------------------------------- #
 
-{ pkgs, config, ... }:
+{ config, ... }:
 
 {
   programs.zsh = {
@@ -10,7 +10,11 @@
     enableAutosuggestions    = true;
     enableSyntaxHighlighting = true;
     enableCompletion         = true;
+    dotDir                   = ".config/zsh";
 
+    shellAliases = {
+      "sudo" = "doas";
+    };
     history   = {
       expireDuplicatesFirst = true;
       save                  = 512;

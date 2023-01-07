@@ -2,7 +2,7 @@
 # -- laptop configuration file -- #
 # ------------------------------- #
 
-{ config, pkgs, lib, ... }:
+{ pkgs, ... }:
 
 {
   networking.hostName = "fakeflake";

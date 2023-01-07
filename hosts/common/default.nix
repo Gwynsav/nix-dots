@@ -2,11 +2,11 @@
 # -- common nix configuration -- #
 # ------------------------------ #
 
-{ config, pkgs, lib, ... }:
+{ pkgs, overlays, lib, ... }:
 
 {
   # Enable the usage of flakes, pretty important for git versions
-  # of Awesome and Picom.
+  # of Awesome and Picom provided by fortuneteller2k.
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Bootloader
@@ -18,16 +18,16 @@
 
   # Networking
   # ----------
-  networking.networkmanager.enable     = true;
-  networking.firewall.enable           = true;
+  networking.networkmanager.enable  = true;
+  networking.firewall.enable        = true;
 
   # Security
   # --------
   # doas is a smaller, more secure implementation of sudo.
   security.sudo.enable = false;
   security.doas = {
-    enable     = true;
-    extraRules = [
+    enable      = true;
+    extraRules  = [
       {
         users   = [ "gw" ];
         keepEnv = true;
@@ -38,19 +38,19 @@
 
   # Locale
   # ------
-  time.timeZone      = "Europe/Amsterdam";
-  i18n.defaultLocale = "en_US.UTF-8";
+  time.timeZone       = "Europe/Amsterdam";
+  i18n.defaultLocale  = "en_US.UTF-8";
   console = {
-    font         = "Lat2-Terminus16";
-    useXkbConfig = true;
+    font          = "Lat2-Terminus16";
+    useXkbConfig  = true;
   };
 
   # Users
   # -----
   users.users.gw = {
-    isNormalUser = true;
-    extraGroups  = [ "wheel" "networkmanager" "audio" "libvirtd" ];
-    packages     = with pkgs; [ ];
+    isNormalUser  = true;
+    extraGroups   = [ "wheel" "networkmanager" "audio" "libvirtd" ];
+    packages      = with pkgs; [ ];
   };
 
   # Shell
@@ -61,21 +61,21 @@
   # --------
   services = {
     xserver = {
-      enable       = true;
-      layout       = "us";
-      xkbOptions   = "caps:super";
+      enable      = true;
+      layout      = "us";
+      xkbOptions  = "caps:super";
       # Touchpad support
       libinput.enable = true;
-      displayManager = {
+      displayManager  = {
         lightdm = {
-          enable     = true;
-          background = ./stuff/lightdm_bg.png;
+          enable      = true;
+          background  = ./stuff/lightdm_bg.png;
         };
-        defaultSession = "none+awesome";
+        defaultSession  = "none+awesome";
       };
       windowManager.awesome = {
-        enable     = true;
-        luaModules = lib.attrValues {
+        enable      = true;
+        luaModules  = lib.attrValues {
           inherit (pkgs.luaPackages) lgi ldbus luadbi-mysql luaposix;
         };
       };
@@ -84,12 +84,12 @@
     # -----
     # We do Pipewire 'round here.
     pipewire = {
-      enable       = true;
-      jack.enable  = true;
-      pulse.enable = true;
-      alsa = {
-        enable       = true;
-        support32Bit = true;
+      enable        = true;
+      jack.enable   = true;
+      pulse.enable  = true;
+      alsa  = {
+        enable        = true;
+        support32Bit  = true;
       };
     };
   };
@@ -119,16 +119,12 @@
     binsh  = "${pkgs.bash}/bin/bash";
     shells = with pkgs; [ zsh ];
     systemPackages = with pkgs; [
-      (hiPrio procps)
-      cmake
-      gcc
-      git
-      wget
-      lua
-      maim
-      xclip
-      unzip
+      ( hiPrio procps )
+      cmake gcc lua
+      git wget unzip
+      maim xclip
       libnotify
+      home-manager
       virt-manager
     ];
     variables = {
@@ -151,11 +147,23 @@
   # -----
   fonts = {
     fonts = with pkgs; [
-      noto-fonts
+      roboto
+      eb-garamond
       material-icons
+      noto-fonts-emoji-blob-bin
+      liberation_ttf
       ( nerdfonts.override { fonts = [ "CascadiaCode" ]; } )
     ];
-    fontconfig.enable = true;
+    fontconfig = {
+      enable        = true;
+      defaultFonts  = {
+        serif     = [ "EB Garamond" ];
+        sansSerif = [ "Roboto" ];
+        emoji     = [ "Blobmoji" ];
+        # CascadiaCode has a very weird fc name.
+        monospace = [ "CaskaydiaCove Nerd Font" ];
+      };
+    };
   };
 
   # Hardware
