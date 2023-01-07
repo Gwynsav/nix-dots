@@ -1,0 +1,12 @@
+[submodule "users/gw/config/awesome/modules/awesome-battery_widget"]
+	path = users/gw/config/awesome/modules/awesome-battery_widget
+	url = https://github.com/Aire-One/awesome-battery_widget
+[submodule "users/gw/config/awesome/modules/bling"]
+	path = users/gw/config/awesome/modules/bling
+	url = https://github.com/blingcorp/bling
+[submodule "users/gw/config/awesome/modules/rubato"]
+	path = users/gw/config/awesome/modules/rubato
+	url = https://github.com/andOrlando/rubato
+[submodule "users/gw/config/awesome/modules/color"]
+	path = users/gw/config/awesome/modules/color
+	url = https://github.com/andOrlando/color
