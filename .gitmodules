@@ -1,3 +1,6 @@
 [submodule "users/gw/config/gwdawful"]
 	path = users/gw/config/gwdawful
 	url = https://github.com/Gwynsav/gwdawful
+[submodule "users/gw/config/awesome"]
+	path = users/gw/config/awesome
+	url = https://github.com/Gwynsav/gwdawful
