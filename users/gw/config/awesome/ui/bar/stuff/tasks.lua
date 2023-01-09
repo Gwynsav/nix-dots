@@ -9,10 +9,23 @@ local beautiful = require('beautiful')
 
 local helpers   = require('helpers')
 
+--TODO: implement fix for st's icon
+--[[ -- Obtain client icon if not available by default ]]
+--[[ local extract_icon = function(c) ]]
+--[[   -- exceptions (add support for st). ]]
+--[[   if c.class then ]]
+--[[     if string.lower(c.class) == 'st' then ]]
+--[[       return theme:get_icon_path(string.lower(c.class)) ]]
+--[[     end ]]
+--[[   end ]]
+--[[   -- has support for some others apps like spotify ]]
+--[[   return theme:get_client_icon_path(c) ]]
+--[[ end ]]
+
 local function gettasklist(s)
     return awful.widget.tasklist {
         screen  = s,
-        filter  = awful.widget.tasklist.filter.alltags,
+        filter  = awful.widget.tasklist.filter.currenttags,
         source  = function()
             local ret = {}
             for _, t in ipairs(s.tags) do

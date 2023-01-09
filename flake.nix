@@ -60,7 +60,7 @@
       homeConfigurations  = {
         gw =
           import ./users/gw
-          { inherit config nixpkgs overlays home-manager inputs; };
+          { inherit config nixpkgs overlays home-manager lib inputs; };
       };
     };
 }

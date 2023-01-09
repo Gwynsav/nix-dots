@@ -19,11 +19,6 @@ in
 {
   # HomeManager Variables
   # ---------------------
-  home = {
-    username      = "gw";
-    homeDirectory = "/home/gw";
-    stateVersion  = "22.11";
-  };
   programs.home-manager.enable = true;
 
   # Program Configurations
@@ -75,7 +70,6 @@ in
     };
   };
 
-  nixpkgs.config.allowUnfree = true;
   home = {
     # Package Installations
     # ---------------------

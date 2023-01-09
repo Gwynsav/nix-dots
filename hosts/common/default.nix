@@ -82,7 +82,7 @@
     };
     # Sound
     # -----
-    # We do Pipewire 'round here.
+    # Pipewire good.
     pipewire = {
       enable        = true;
       jack.enable   = true;
@@ -179,7 +179,9 @@
   # NixOS Settings
   # --------------
   # Copy configuration.nix to /run/current-system/
-  system.copySystemConfiguration = true;
+  # I found out way too late this is entirely incompatible
+  # with flakes, and therefore this whole configuration :/
+  system.copySystemConfiguration = false;
   # Initial OS release.
   system.stateVersion            = "22.11";
 }

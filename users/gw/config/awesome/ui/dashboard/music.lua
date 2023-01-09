@@ -18,7 +18,6 @@ local playerctl = require('modules.bling').signal.playerctl.lib()
 ----------
 local album_art = wibox.widget {
     image       = beautiful.player_bg,
-    --[[ image       = user_avatar, ]]
     vertical_fit_policy   = "fit",
     horizontal_fit_policy = "fit",
     resize      = true,
@@ -101,7 +100,7 @@ local icon_shff = wibox.widget {
             playerctl:cycle_shuffle() end)
     }
 }
-local ctrl_shff = helpers.mkbtn(icon_shff, beautiful.lbg, beautiful.grn_d)
+local ctrl_shff = helpers.mkbtn(icon_shff, beautiful.lbg, beautiful.blk)
 local icon_loop = wibox.widget {
     text    = "",
     font    = ic_font .. dash_size / 48,
@@ -111,9 +110,10 @@ local icon_loop = wibox.widget {
             playerctl:cycle_loop_status() end)
     }
 }
-local ctrl_loop = helpers.mkbtn(icon_loop, beautiful.lbg, beautiful.grn_d)
+local ctrl_loop = helpers.mkbtn(icon_loop, beautiful.lbg, beautiful.blk)
 
 -- Volume control
+local is_hovered = false
 local vol_bar = wibox.widget {
     {
         {
@@ -150,19 +150,27 @@ local vol_bar = wibox.widget {
 vol_bar.slider:connect_signal('property::value', function(_, value)
     playerctl:set_volume(value / 100)
 end)
+vol_bar:connect_signal('mouse::enter', function()
+    is_hovered = true
+end)
+vol_bar:connect_signal('mouse::leave', function()
+    is_hovered = false
+end)
 
 -- Signals
 ----------
 playerctl:connect_signal("metadata",
     function(_, title, artist, album_path, album, new, player_name)
-        album_art.image   = album_path:match("/") and album_path or player_bg
+        album_art.image   = album_path:match("/") and album_path or beautiful.player_bg
         sng_title.markup  = title:match("%w") and "<b>" .. title .. "</b>" or "<b>Nothing Playing</b>"
         sng_artist.markup = artist:match("%w") and "by " .. artist or "by Unknown"
         sng_album.markup  = album:match("%w") and"on <i>" .. album .. "</i>" or "on <i>Unknown</i>"
 end)
 playerctl:connect_signal("position", function(_, interval_sec, length_sec, player_name)
+    if interval_sec > 0 then
         sng_progress.maximum = length_sec
         sng_progress.value   = interval_sec
+    end
 end)
 playerctl:connect_signal("playback_status", function(_, playing, player_name)
         ctrl_play.text = playing and "" or ""
@@ -183,7 +191,7 @@ playerctl:connect_signal("loop_status", function(_, loop_status)
     end
 end)
 playerctl:connect_signal("volume", function(_, volume, player_name)
-        vol_bar.value  = volume
+        vol_bar.value  = not is_hovered and volume
 end)
 
 -- Music Player
@@ -226,9 +234,9 @@ local function music()
                             },
                             {
                                 {
-                                    helpers.mkbtn(ctrl_prev, beautiful.lbg, beautiful.grn_d),
-                                    helpers.mkbtn(ctrl_play, beautiful.lbg, beautiful.grn_d),
-                                    helpers.mkbtn(ctrl_next, beautiful.lbg, beautiful.grn_d),
+                                    helpers.mkbtn(ctrl_prev, beautiful.lbg, beautiful.blk),
+                                    helpers.mkbtn(ctrl_play, beautiful.lbg, beautiful.blk),
+                                    helpers.mkbtn(ctrl_next, beautiful.lbg, beautiful.blk),
                                     spacing = dash_size / 96,
                                     layout  = wibox.layout.fixed.horizontal
                                 },
@@ -258,7 +266,6 @@ local function music()
                     },
                     layout = wibox.layout.align.vertical
                 },
-                visible = false,
                 layout = wibox.layout.stack
             },
             spacing = dash_size / 72,

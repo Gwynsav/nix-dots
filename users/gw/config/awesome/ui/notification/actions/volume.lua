@@ -1,8 +1,9 @@
---------------------------
--- volume notifications --
---------------------------
+local naughty   = require('naughty')
+local bt        = require('beautiful')
 
-local naughty = require('naughty')
+local icon_dir  = require('gears.filesystem').get_configuration_dir() .. "themes/assets/notification/"
+local audio_on  = require('gears.color').recolor_image(icon_dir .. "audio-on.svg", bt.notification_accent)
+local audio_off = require('gears.color').recolor_image(icon_dir .. "audio-off.svg", bt.notification_accent)
 
 -- Sends a notification every time the content of the volume signal
 -- is modified.
@@ -14,12 +15,13 @@ awesome.connect_signal('signal::volume', function(volume, muted)
     else
         local message
         if muted then
-            message = "Volume Muted"
+            message = "Muted"
         else
-            message = "Volume set to " .. tostring(volume) .. "%"
+            message = tostring(volume) .. "%"
         end
         notif = naughty.notification({
-                title = "System Audio", message = message, 
+                title = "Audio", message = message, 
+                icon = muted and audio_off or audio_on,
                 timeout = timeout, app_name = "volume" 
             }, notif)
     end

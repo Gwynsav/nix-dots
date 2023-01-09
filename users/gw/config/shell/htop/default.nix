@@ -2,7 +2,7 @@
 # -- Custom htop Configuration -- #
 # ------------------------------- #
 
-{ config, lib, ... }:
+{ config, ... }:
 
 {
   programs.htop = {

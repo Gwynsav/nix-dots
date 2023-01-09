@@ -33,24 +33,21 @@ ruled.notification.connect_signal('request::rules', function()
     }
 end)
 
+naughty.connect_signal("request::icon", function(n, context, hints)
+    if context ~= "app_icon" then
+        return
+    end
+    local path = require('menubar').utils.lookup_icon(hints.app_icon) or
+                 require('menubar').utils.lookup_icon(hints.app_icon:lower())
+    if path then
+        n.icon = path
+    end
+end)
+naughty.connect_signal("request::action_icon", function(a, context, hints)
+    a.icon = menubar.utils.lookup_icon(hints.id)
+end)
+
 naughty.connect_signal("request::display", function(n)
-    -- Animation stolen right off the certified animation ghost.
-    local x = wibox.widget { 
-        widget = wibox.widget.imagebox,
-        image  = gears.color.recolor_image(close_ico, beautiful.red),
-    }
-    local timeout_graph = wibox.widget {
-        widget    = wibox.container.arcchart,
-        min_value = 0,
-        max_value = 100,
-        value     = 0,
-        thickness = notif_size / 20,
-        paddings  = notif_size / 20,
-        rounded_edge = true,
-        colors       = { beautiful.red },
-        bg           = beautiful.lbg,
-        x,
-    }
     local title = wibox.widget {
         widget        = wibox.container.scroll.horizontal,
         step_function = wibox.container.scroll.step_functions.
@@ -59,8 +56,9 @@ naughty.connect_signal("request::display", function(n)
         rate          = 144,
         {
             widget = wibox.widget.textbox,
-            font   = ui_font .. notif_size / 3,
-            text   = n.title
+            halign = "center",
+            font   = ui_font .. notif_size / 7,
+            markup = "<b>" .. n.title .. "</b>"
         }
     }
     local summary = wibox.widget {
@@ -71,91 +69,93 @@ naughty.connect_signal("request::display", function(n)
         rate          = 144,
         {
             widget = wibox.widget.textbox,
-            font   = ui_font .. notif_size / 3.33,
+            halign = "center",
+            font   = ui_font .. notif_size / 8,
             text   = gears.string.xml_unescape(n.message)
         }
     }
     local image = wibox.widget {
-        {
-            widget = wibox.widget.imagebox,
-            image  = n.image,
-            resize = true,
-            halign = "center",
-            valign = "center",
-            clip_shape    = helpers.mkroundedrect(),
-            forced_height = notif_size * 2/3
-        },
-        right  = notif_size / 4,
-        widget = wibox.container.margin
+        widget = wibox.widget.imagebox,
+        image  = n.icon,
+        resize = true,
+        align  = "center",
+        clip_shape    = helpers.mkroundedrect(),
 	  }
-    naughty.layout.box { 
+    -- Animation stolen right off the certified animation lady.
+    local timeout_graph = wibox.widget {
+        widget    = wibox.container.arcchart,
+        min_value = 0,
+        max_value = 100,
+        value     = 0,
+        thickness = notif_size / 24,
+        paddings  = notif_size / 24,
+        rounded_edge = true,
+        colors       = { beautiful.notification_accent },
+        bg           = beautiful.lbg,
+        forced_height = notif_size * 3/4,
+        forced_width  = notif_size * 3/4,
+        image,
+    }
+    local widget = naughty.layout.box { 
         notification = n, 
         cursor       = "hand2",
         shape        = helpers.mkroundedrect(),
         widget_template = {
             {
-                -- Title config
+                {
+                    {
+                        {
+                            timeout_graph,
+                            margins = notif_size / 10,
+                            widget  = wibox.container.margin
+                        },
+                        strategy = "min",
+                        width    = notif_size / 3,
+                        widget   = wibox.container.constraint
+                    },
+                    strategy = "max",
+                    width    = notif_size * 1.5,
+                    widget   = wibox.container.constraint
+                },
                 {
                     {
                         {
                             {
                                 {
                                     {
-                                        title,
-                                        halign = "left",
-                                        layout = wibox.container.place
-                                    },
-                                    {
                                         {
-                                            timeout_graph,
-                                            left    = notif_size / 5,
-                                            bottom  = notif_size / 5,
-                                            top     = notif_size / 5,
-                                            widget  = wibox.container.margin
+                                            title,
+                                            halign = "center",
+                                            widget = wibox.container.place
                                         },
-                                        halign = "right",
-                                        layout = wibox.container.place
+                                        {
+                                            summary,
+                                            halign = "center",
+                                            widget = wibox.container.place
+                                        },
+                                        spacing = notif_size / 24,
+                                        layout  = wibox.layout.fixed.vertical
                                     },
-                                    fill_space = true,
-                                    layout = wibox.layout.align.horizontal
+                                    align  = "center",
+                                    widget = wibox.container.place
                                 },
-                                left   = notif_size / 3,
-                                right  = notif_size / 3,
-                                widget = wibox.container.margin
+                                margins = notif_size / 4,
+                                widget  = wibox.container.margin
                             },
-                            forced_height = notif_size,
                             bg     = beautiful.lbg,
+                            shape  = helpers.mkroundedrect(),
                             widget = wibox.container.background
                         },
                         strategy = "min",
-                        width    = notif_size * 4,
+                        width    = notif_size * 1.5,
                         widget   = wibox.container.constraint
                     },
                     strategy = "max",
-                    width    = notif_size * 8,
-                    widget   = wibox.container.constraint
+                    width   = notif_size * 3,
+                    height  = notif_size,
+                    widget  = wibox.container.constraint
                 },
-                -- Content config
-                {
-                    {
-                        {
-                            {
-                                image,
-                                summary,
-                                layout = wibox.layout.fixed.horizontal
-                            },
-                            margins = notif_size / 4,
-                            widget  = wibox.container.margin
-                        },
-                        strategy = "min",
-                        height   = notif_size * 2,
-                        widget   = wibox.container.constraint
-                    },
-                    strategy = "max",
-                    width    = notif_size * 8,
-                    widget   = wibox.container.constraint
-                },
-                layout = wibox.layout.align.vertical
+                layout = wibox.layout.fixed.horizontal
             },
             id     = "background_role",
             bg     = beautiful.nbg,
@@ -169,5 +169,5 @@ naughty.connect_signal("request::display", function(n)
             timeout_graph.value = pos
         end
     }
-    anim.target = 100
+    anim.target     = 100
 end)

@@ -1,7 +1,3 @@
------------------------------
--- window management rules --
------------------------------
-
 -- Imports
 ----------
 local awful     = require('awful')

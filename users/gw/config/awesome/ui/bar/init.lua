@@ -12,7 +12,6 @@ local helpers   = require('helpers')
 local gettags   = require('ui.bar.stuff.tags')
 local gettasks  = require('ui.bar.stuff.tasks')
 local getlayout = require('ui.bar.stuff.layout')
-require('ui.bar.stuff.systray')
 
 -- Bar Widgets
 --------------
@@ -20,15 +19,21 @@ require('ui.bar.stuff.systray')
 local bar_dash = wibox.widget { 
     {
         {
-            image      = beautiful.awesome_icon,
-            clip_shape = helpers.mkroundedrect(), 
-            widget     = wibox.widget.imagebox 
+            {
+                image      = beautiful.awesome_icon,
+                clip_shape = helpers.mkroundedrect(), 
+                widget     = wibox.widget.imagebox 
+            },
+            margins = bar_size / 7,
+            widget  = wibox.container.margin
         },
-        margins = bar_size / 7,
-        widget  = wibox.container.margin
+        align  = "center",
+        widget = wibox.container.place
     },
     bg     = beautiful.lbg,
     shape  = helpers.mkroundedrect(),
+    forced_height = bar_size,
+    forced_width  = bar_size,
     widget = wibox.container.background,
     buttons = {
         awful.button({}, 1, function()
@@ -39,7 +44,7 @@ local bar_dash = wibox.widget {
 helpers.add_hover(bar_dash, beautiful.lbg, beautiful.blk)
 
 -- Application Launcher
-local bar_launcher = {
+local bar_launcher = wibox.widget {
     {
         {
             image       = beautiful.launcher_icon,
@@ -58,7 +63,7 @@ local bar_launcher = {
         end)
     }
 }
---[[ helpers.add_hover(bar_launcher, beautiful.lbg, beautiful.blk) ]]
+helpers.add_hover(bar_launcher, beautiful.lbg, beautiful.blk)
 
 -- Status icons
 local function status_widget(button)
@@ -100,6 +105,16 @@ local bar_bluetooth = status_widget("bluetoothctl power off") -- Bluetooth on?
 local bar_btn_blue  = helpers.mkbtn(bar_bluetooth, beautiful.nbg, beautiful.lbg)
 
 -- The actual systray
+local systray     = wibox.widget {
+    {
+        horizontal  = false,
+        base_size   = bar_size / 2,
+        widget      = wibox.widget.systray
+    },
+    align   = "center",
+    visible = false,
+    layout  = wibox.container.place
+}
 local systray_btn = wibox.widget { 
     {
         {
@@ -108,7 +123,7 @@ local systray_btn = wibox.widget {
             align   = "center",
             widget  = wibox.widget.textbox,
         },
-        direction   = bar_pos == "left" and "north" or "south",
+        direction   = bar_type == "vertical" and "east" or "south",
         widget      = wibox.container.rotate
     },
     bg     = beautiful.nbg,
@@ -116,16 +131,11 @@ local systray_btn = wibox.widget {
     widget = wibox.container.background,
     buttons = {
         awful.button({}, 1, function()
-            awesome.emit_signal('widget::systray')
+            systray.visible = not systray.visible
         end)
-    },
+    }
 }
 helpers.add_hover(systray_btn, beautiful.nbg, beautiful.lbg)
-local systray_btn_h = wibox.widget {
-    systray_btn,
-    direction   = bar_pos == "top" and "east" or "west",
-    widget      = wibox.container.rotate
-}
 
 -- Create a textclock widget
 local vbar_clock = {
@@ -172,7 +182,7 @@ local hbar_clock = {
 --------------
 -- The actual bar itself
 screen.connect_signal("request::desktop_decoration", function(s)
-    awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8" }, s, awful.layout.layouts[1])
+    awful.tag({ "1", "2", "3", "4", "5", "6", "7" }, s, awful.layout.layouts[1])
 
     local taglist_v = wibox.widget {
         {
@@ -211,6 +221,8 @@ screen.connect_signal("request::desktop_decoration", function(s)
                     widget = wibox.container.place
                 },
                 { -- Bottom Widgets
+                    systray, 
+                    systray_btn,
                     {
                         bar_type == "horizontal" and bar_battery_prog or flipped_battery,
                         {
@@ -221,7 +233,6 @@ screen.connect_signal("request::desktop_decoration", function(s)
                         visible = battery,
                         layout = wibox.layout.stack
                     },
-                    bar_type == "horizontal" and systray_btn_h or systray_btn,
                     bar_type == "horizontal" and hbar_clock or vbar_clock,
                     {
                         bar_btn_sound,

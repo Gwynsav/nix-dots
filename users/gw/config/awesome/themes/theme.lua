@@ -47,7 +47,8 @@ theme.font                    = ui_font .. "Medium " .. scaling / 108
 theme.wallpaper               = user_wall == "default" and clrs.wall   or user_wall
 theme.user_avatar             = user_avatar == "default" and defaults .. "user.png" or user_avatar
 theme.player_bg               = player_bg == "default" and clrs.player or player_bg
-theme.launcher_icon           = gc.recolor_image(asst_dir .. "launcher.svg", theme.nfg)
+theme.launcher_icon           = gc.recolor_image(asst_dir .. "launcher.svg", theme.dfg)
+theme.icon_theme              = "Papirus"
 
 -- Layouts
 theme.useless_gap             = scaling / 180
@@ -71,8 +72,9 @@ theme.tasklist_disable_task_name = true
 theme.tasklist_align             = "center"
 
 -- notification settings
-theme.notification_padding       = theme.useless_gap * 2
+theme.notification_padding       = theme.useless_gap * 4
 theme.notification_spacing       = theme.notification_padding / 2
+theme.notification_accent        = theme.grn
 
 -- Theme Colors
 ---------------
@@ -133,19 +135,20 @@ theme.wibar_bg                = theme.bg_normal
 theme.wibar_fg                = theme.fg_normal
 
 -- Awesome icon
---[[ theme.awesome_icon            = gc.recolor_image(asst_dir .. "nix.svg", theme.blu) ]]
-theme.awesome_icon            = require('beautiful.theme_assets').awesome_icon(scaling / 8, theme.fg_normal, theme.bg_normal)
+if awm_icon == "default" then
+    theme.awesome_icon = require('beautiful.theme_assets').awesome_icon(scaling / 8, theme.fg_normal, theme.bg_normal)
+elseif awm_icon == "nix" then
+    theme.awesome_icon = gc.recolor_image(asst_dir .. "nix.svg", theme.blu)
+else
+    theme.awesome_icon = awm_icon
+end
 
 -- Taglist
 theme.taglist_font            = mn_font .. scaling / 108
-theme.taglist_bg_focus        = theme.ylw
-theme.taglist_bg_occupied     = theme.fg_normal
+theme.taglist_bg_focus        = theme.ylw_d
+theme.taglist_bg_occupied     = theme.ylw
 theme.taglist_bg_empty        = theme.gry
 theme.taglist_bg_urgent       = theme.fg_urgent
-theme.taglist_fg_focus        = theme.taglist_bg_focus
-theme.taglist_fg_occupied     = theme.taglist_bg_occupied
-theme.taglist_fg_empty        = theme.taglist_bg_empty
-theme.taglist_fg_urgent       = theme.taglist_bg_urgent
 
 -- Tasklist
 theme.tasklist_font           = theme.font
@@ -166,9 +169,6 @@ theme.layout_floating         = gc.recolor_image(awes_dir .. "floating.png",    
 -- theme.layout_cornerne         = gc.recolor_image(awes_dir .. "cornernew.png",   theme.fg_normal)
 -- theme.layout_cornersw         = gc.recolor_image(awes_dir .. "cornersww.png",   theme.fg_normal)
 -- theme.layout_cornerse         = gc.recolor_image(awes_dir .. "cornersew.png",   theme.fg_normal)
-theme.mstab_bar_padding       = theme.useless_gap
-theme.mstab_bar_height        = titles_size
-theme.mstab_border_radius     = border_rad
 theme.mstab_tabbar_style      = "modern"
 
 -- Notification
@@ -195,22 +195,12 @@ theme.snap_border_width       = titles_size / 2
 theme.snap_shape              = gears.shape.rectangle
 
 -- Systray
-theme.systray_max_rows        = 3
+theme.systray_max_rows        = 1
 theme.systray_icon_spacing    = theme.useless_gap / 2
 
 -- Wallpaper setting
--- Awesome wallpaper setting is literally ass.
---[[ screen.connect_signal("request::wallpaper", function(s) ]]
---[[     awful.wallpaper { ]]
---[[         screen = s, ]]
---[[         widget = { ]]
---[[             image                 = theme.wallpaper, ]]
---[[             resize                = true, ]]
---[[             widget                = wibox.widget.imagebox, ]]
---[[         } ]]
---[[     } ]]
---[[ end) ]]
-awful.spawn.once("feh --bg-fill --no-xinerama " .. theme.wallpaper)
+--[[ awful.spawn.once("feh --bg-fill --no-xinerama " .. theme.wallpaper) ]]
+gears.wallpaper.maximized(theme.wallpaper)
 
 return theme
 

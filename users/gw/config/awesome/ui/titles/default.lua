@@ -45,6 +45,7 @@ client.connect_signal("request::titlebars", function(c)
                 buttons = buttons,
                 layout  = titles_type == "horizontal" and wibox.layout.fixed.horizontal or wibox.layout.fixed.vertical
             },
+            spacing = titles_size / 4,
             layout  = titles_type == "horizontal" and wibox.layout.align.horizontal or wibox.layout.align.vertical
         },
         top     = titles_type == "horizontal" and titles_size / 5 or titles_size / 4,

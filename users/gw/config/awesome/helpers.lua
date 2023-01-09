@@ -1,10 +1,3 @@
------------------------
--- Helpful functions --
------------------------
--- Basically all of these are alpha's
-
--- Imports
-----------
 local awful     = require('awful')
 local gears     = require('gears')
 local wibox     = require('wibox')
@@ -13,8 +6,6 @@ local beautiful = require('beautiful')
 local color     = require('modules.color')
 local rubato    = require('modules.rubato')
 
--- Helpers
-----------
 local helpers = {}
 -- create a transition animation function
 function helpers.apply_transition(opts)
@@ -78,6 +69,10 @@ function helpers.mkbtn(template, bg, hbg, radius)
         helpers.add_hover(button, bg, hbg)
     end
     return button
+end
+-- Send key
+function helpers.send_key(c, key)
+	awful.spawn.with_shell("xdotool key --window " .. tostring(c.window) .. " " .. key)
 end
 
 return helpers
