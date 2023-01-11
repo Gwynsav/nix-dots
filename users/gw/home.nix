@@ -25,7 +25,7 @@ in
   # ----------------------
   # TODO: correct neovim file structure
   xdg.configFile.nvim.source    = ./config/shell/nvim;
-  xdg.configFile.awesome.source = ./config/gwdawful;
+  xdg.configFile.awesome.source = ./config/awesome;
 
   imports = [
     # Terminal Emulators
