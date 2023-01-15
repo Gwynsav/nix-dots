@@ -2,6 +2,7 @@ local awful     = require('awful')
 local gears     = require('gears')
 local wibox     = require('wibox')
 local beautiful = require('beautiful')
+local dpi       = require('beautiful').xresources.apply_dpi
 
 local color     = require('modules.color')
 local rubato    = require('modules.rubato')
@@ -47,9 +48,9 @@ end
 
 -- create a rounded rect using a custom radius
 function helpers.mkroundedrect(radius)
-    radius = radius or border_rad
+    radius = radius or beautiful.border_radius
     return function (cr, w, h)
-        return gears.shape.rounded_rect(cr, w, h, radius)
+        return gears.shape.rounded_rect(cr, w, h, dpi(radius))
     end
 end
 
@@ -58,7 +59,7 @@ function helpers.mkbtn(template, bg, hbg, radius)
     local button = wibox.widget {
         {
             template,
-            margins = scaling / 270,
+            margins = dpi(scaling / 270),
             widget  = wibox.container.margin,
         },
         bg     = bg,

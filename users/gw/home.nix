@@ -11,22 +11,21 @@ let
     sha256 = "0my2286bzk8jhmhjvas61fbk31p43s3xd3rz4q6qc5vl1afd3641";
   }) { inherit pkgs; };
 
-  # Colorscheme
-  colors      = import ./theme/decay.nix {};
+  # GTK themes
   decayce-gtk = with pkgs; callPackage ../../pkgs/decayce-gtk.nix { };
+
+  # Colorscheme
+  colors      = import ./theme/catppuccin.nix {};
 in
 
 {
-  # HomeManager Variables
-  # ---------------------
+  # Enable some useful programs.
+  # Allows Home Manager to administer itself.
   programs.home-manager.enable = true;
+  programs.mpv.enable        = true;
 
   # Program Configurations
   # ----------------------
-  # TODO: correct neovim file structure
-  xdg.configFile.nvim.source    = ./config/shell/nvim;
-  xdg.configFile.awesome.source = ./config/awesome;
-
   imports = [
     # Terminal Emulators
     # By default these dots use XTerm, as Nix installs it as a fallback,
@@ -36,7 +35,7 @@ in
 
     # Terminal Apps
     ( import ./config/shell/zsh        { inherit config; } )
-    ( import ./config/shell/nvim       { inherit pkgs; } )
+    ( import ./config/shell/nvim       { inherit pkgs colors; } )
     ( import ./config/shell/htop       { inherit config; } )
     ( import ./config/shell/lf         { } )
 
@@ -54,9 +53,7 @@ in
     ( import ./config/xresources.nix   { inherit colors; } )
     # ( import ./config/utils/picom      { inherit colors; } )
   ];
-
-  # Enable some useful programs.
-  programs.mpv.enable        = true;
+  xdg.configFile.awesome.source = ./config/awesome;
 
   # GTK Configuration
   # -----------------

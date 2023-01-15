@@ -1,0 +1,17 @@
+### Items yet TODO
+- Make native launcher
+- Reduce amount of global variables
+- More user configuration features
+- Custom ncmpcpp UI
+- Networking wrapper through lgi dbus interface (presumably same for bluetooth)
+- MSTab theming
+
+### Items completed
+- Fix client titlebar spacing
+- Screenshot actions (save, discard)
+- Proper screenshot utility
+- Fix dashboard placement and maybe rethink size
+- Default notification template improvements
+- Extend (and improve) colorschemes to 20 color palette
+- Fix dashboard glitches
+- Panel options

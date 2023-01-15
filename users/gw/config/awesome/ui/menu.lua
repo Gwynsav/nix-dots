@@ -9,6 +9,7 @@ local beautiful = require('beautiful')
 local wibox     = require('wibox')
 local gears     = require('gears')
 local gfs       = gears.filesystem
+local dpi       = beautiful.xresources.apply_dpi
 
 local helpers   = require('helpers')
 
@@ -52,7 +53,7 @@ menu.mainmenu.wibox:set_widget(wibox.widget({
             shape  = helpers.mkroundedrect(),
             widget = wibox.container.background,
         },
-        margins = scaling / 100,
+        margins = dpi(scaling / 100),
         widget = wibox.container.margin
     },
     bg     = beautiful.bg_normal,
@@ -73,7 +74,7 @@ function awful.menu.new(...)
                     shape  = helpers.mkroundedrect(),
                     widget = wibox.container.background,
                 },
-                margins = scaling / 100,
+                margins = dpi(scaling / 100),
                 widget = wibox.container.margin
             },
             widget = wibox.container.background,

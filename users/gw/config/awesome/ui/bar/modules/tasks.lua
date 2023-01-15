@@ -6,6 +6,7 @@ local awful     = require('awful')
 local wibox     = require('wibox')
 local gears     = require('gears')
 local beautiful = require('beautiful')
+local dpi       = beautiful.xresources.apply_dpi
 
 local helpers   = require('helpers')
 
@@ -45,7 +46,7 @@ local function gettasklist(s)
             awful.button({ }, 5, function() awful.client.focus.byidx( 1) end),
         },
         layout  = {
-            spacing = bar_size / 10,
+            spacing = dpi(bar_size / 10),
             layout  = bar_type == "vertical" and wibox.layout.fixed.vertical or wibox.layout.fixed.horizontal
         },
         style   = {
@@ -56,7 +57,7 @@ local function gettasklist(s)
                 {
                     widget  = awful.widget.clienticon
                 },
-                margins = bar_size / 10,
+                margins = dpi(bar_size / 10),
                 widget  = wibox.container.margin
             },
             id      = 'background_role',

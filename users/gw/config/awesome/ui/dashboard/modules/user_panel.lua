@@ -8,6 +8,7 @@ local awful     = require('awful')
 local beautiful = require('beautiful')
 local gears     = require('gears') 
 local wibox     = require('wibox') 
+local dpi       = beautiful.xresources.apply_dpi
 
 local helpers   = require('helpers')
 
@@ -18,8 +19,7 @@ local avatar  = wibox.widget {
     image         = beautiful.user_avatar,
     clip_shape    = gears.shape.circle,
     resize        = true,
-    forced_height = dash_size / 12,
-    forced_width  = dash_size / 12,
+    forced_height = dpi(dash_size / 12),
 }
 
 local greeter = wibox.widget {
@@ -66,8 +66,8 @@ local bat_bar = wibox.widget {
             clip        = true,
             bar_shape   = helpers.mkroundedrect(),
             shape       = helpers.mkroundedrect(),
-            forced_height = dash_size / 32,
-            forced_width  = dash_size / 12,
+            forced_height = dpi(dash_size / 32),
+            forced_width  = dpi(dash_size / 12),
             widget      = wibox.widget.progressbar
         },
         {
@@ -82,7 +82,7 @@ local bat_bar = wibox.widget {
                 fg      = beautiful.nbg,
                 widget  = wibox.container.background
             },
-            left   = dash_size / 128,
+            left   = dpi(dash_size / 128),
             widget = wibox.container.margin
         },
         layout = wibox.layout.stack,
@@ -96,7 +96,7 @@ local bat_bar = wibox.widget {
         fg     = beautiful.wht,
         widget = wibox.container.background
     },
-    spacing = dash_size / 128,
+    spacing = dpi(dash_size / 128),
     layout  = wibox.layout.fixed.horizontal,
     set_value  = function(self, val)
         self:get_children_by_id('progressbar_role')[1].value = val
@@ -165,22 +165,22 @@ local function user_profile()
                                 fg     = beautiful.wht,
                                 widget = wibox.container.background
                             },
-                            spacing = - dash_size / 128,
+                            spacing = dpi(-dash_size / 128),
                             layout  = wibox.layout.flex.vertical
                         },
                         valign = "center",
                         widget = wibox.container.place
                     },
-                    left   = dash_size / 48,
-                    right  = dash_size / 64,
+                    left   = dpi(dash_size / 48),
+                    right  = dpi(dash_size / 64),
                     widget = wibox.container.margin
                 },
                 layout  = wibox.layout.fixed.horizontal
             },
-            left   = dash_size / 56,
-            bottom = dash_size / 72,
-            top    = dash_size / 72,
-            right  = dash_size / 64,
+            left   = dpi(dash_size / 56),
+            bottom = dpi(dash_size / 72),
+            top    = dpi(dash_size / 72),
+            right  = dpi(dash_size / 64),
             widget = wibox.container.margin
         },
         {
@@ -188,7 +188,7 @@ local function user_profile()
                 {
                     {
                         bat_bar,
-                        margins = dash_size / 400,
+                        margins = dpi(dash_size / 400),
                         visible = battery,
                         widget  = wibox.container.margin
                     },
@@ -196,12 +196,12 @@ local function user_profile()
                     {
                         helpers.mkbtn(reboot,   beautiful.lbg, beautiful.gry),
                         helpers.mkbtn(shutdown, beautiful.lbg, beautiful.gry),
-                        spacing = dash_size / 220,
+                        spacing = dpi(dash_size / 220),
                         layout  = wibox.layout.fixed.horizontal
                     },
                     layout = wibox.layout.align.horizontal
                 },
-                margins = dash_size / 192,
+                margins = dpi(dash_size / 192),
                 widget  = wibox.container.margin
             },
             bg     = beautiful.blk,
@@ -211,7 +211,7 @@ local function user_profile()
     },
     shape  = helpers.mkroundedrect(),
     bg     = beautiful.lbg,
-    forced_height = dash_size / 6.4,
+    forced_height = dpi(dash_size / 6.4),
     widget = wibox.container.background
 }
 end

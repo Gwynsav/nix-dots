@@ -12,9 +12,8 @@ local naughty   = require('naughty')
 
 -- Error Handling
 -----------------
--- I will insist very hard on this. This should ALWAYS be the FIRST 
--- thing in any AwesomeWM configuration. Moving this block may affect
--- error traceback notifications, making troubleshooting harder.
+-- Leaving this as the first in your config guarantees all errors will produce
+-- a traceback notification.
 naughty.connect_signal("request::display_error", function(message, startup)
     naughty.notification {
         urgency = "critical",

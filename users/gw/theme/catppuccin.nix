@@ -7,9 +7,9 @@
 rec {
   dbg   = "#1e2030";
   nbg   = "#24273a";
-  lbg   = "#3d4158";
-  blk   = "#494d64";
-  gry   = "#5b6078";
+  lbg   = "#2d3146";
+  blk   = "#3d4158";
+  gry   = "#494d64";
   wht   = "#939ab7";
   dfg   = "#a5adcb";
   nfg   = "#cad3f5";

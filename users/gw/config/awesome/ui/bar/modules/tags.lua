@@ -3,12 +3,13 @@
 ----------------------
 
 -- stolen from Alpha with love <3
-local awful   = require('awful')
-local wibox   = require('wibox')
-local gears   = require('gears')
+local awful     = require('awful')
+local wibox     = require('wibox')
+local gears     = require('gears')
+local dpi       = require('beautiful').xresources.apply_dpi
 
-local helpers = require('helpers')
-local rubato  = require('modules.rubato')
+local helpers   = require('helpers')
+local rubato    = require('modules.rubato')
 
 local multiplier = 1
 if bar_type == "horizontal" then
@@ -23,7 +24,7 @@ local function gettaglist(s)
             shape = helpers.mkroundedrect(),
         },
         layout = {
-            spacing = bar_size / 4,
+            spacing = dpi(bar_size / 4),
             layout  = wibox.layout.fixed.vertical,
         },
         buttons = {
@@ -43,8 +44,8 @@ local function gettaglist(s)
                 widget = wibox.widget.textbox,
             },
             id = 'background_role',
-            forced_height = (bar_size / 1.5) * multiplier,
-            forced_width  = (bar_size / 6) * multiplier,
+            forced_height = dpi(bar_size * multiplier / 1.5),
+            forced_width  = dpi(bar_size * multiplier / 6),
             widget = wibox.container.background,
             create_callback = function (self, tag)
                 self.animate = rubato.timed {

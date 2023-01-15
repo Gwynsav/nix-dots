@@ -1,10 +1,18 @@
+-----------------------------
+-- Layout Switching Script --
+-----------------------------
+
+-- Imports
+----------
 local awful     = require('awful')
 local naughty   = require('naughty')
 local bt        = require('beautiful')
 
-local icon_dir  = require('gears.filesystem').get_configuration_dir() .. "themes/assets/notification/"
-local lang_icon = require('gears.color').recolor_image(icon_dir .. "language.svg", bt.notification_accent)
+local icon      = require('gears.filesystem').get_configuration_dir() .. "themes/assets/notification/language.svg"
+local lang_icon = require('gears.color').recolor_image(icon, bt.notification_accent)
 
+-- Language Switching
+---------------------
 awesome.connect_signal('signal::lang', function()
     awful.spawn.easy_async_with_shell(
         'setxkbmap -query | grep layout:', function(stdout)
@@ -18,9 +26,10 @@ awesome.connect_signal('signal::lang', function()
                 content = "Latinamerican Spanish"
             end
             notif = naughty.notify({
-                    title = "Keyboard Language", 
-                    icon = lang_icon,
-                    text = "Changed to " .. content
+                    title   = "Keyboard Layout", 
+                    icon    = lang_icon,
+                    text    = "Changed to " .. content,
+                    timeout = 3
             }, notif)
     end)
 end)

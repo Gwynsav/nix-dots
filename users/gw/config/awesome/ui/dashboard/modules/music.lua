@@ -10,6 +10,7 @@ local beautiful = require('beautiful')
 local gears     = require('gears')
 local gfs       = gears.filesystem
 local gc        = gears.color
+local dpi       = beautiful.xresources.apply_dpi
 
 local helpers   = require('helpers')
 local playerctl = require('modules.bling').signal.playerctl.lib()
@@ -23,8 +24,8 @@ local album_art = wibox.widget {
     resize      = true,
     opacity     = 0.33,
     align       = "center",
-    forced_height = dash_size * 0.2,
-    forced_width  = dash_size * 0.4,
+    forced_height = dpi(dash_size * 0.2),
+    --[[ forced_width  = dpi(dash_size * 0.4), ]]
     clip_shape  = helpers.mkroundedrect(),
     widget      = wibox.widget.imagebox
 }
@@ -45,22 +46,32 @@ local function sng_info(size, color, placeholder)
     }
 end
 local sng_title  = sng_info(60, beautiful.fg_normal, "<b>Nothing Playing</b>")
-local sng_artist = sng_info(72, beautiful.dfg, "By Unknown")
-local sng_album  = sng_info(72, beautiful.dfg, "On <i>Unknown</i>")
+local sng_artist = sng_info(72, beautiful.dfg,       "By Unknown")
+local sng_album  = sng_info(72, beautiful.dfg,       "On <i>Unknown</i>")
 
+-- Progress Bar
+local is_prog_hovered = false
 local sng_progress = wibox.widget {
     bar_color        = beautiful.lbg,
     bar_active_color = beautiful.cya,
     handle_color     = beautiful.cya,
     handle_shape     = gears.shape.circle,
     bar_shape        = helpers.mkroundedrect(),
-    handle_width     = dash_size / 100,
-    forced_height    = dash_size / 100,
+    handle_width     = dpi(dash_size / 100),
+    forced_height    = dpi(dash_size / 100),
     minimum          = 0,
     widget           = wibox.widget.slider,
 }
+sng_progress:connect_signal('mouse::enter', function()
+    is_prog_hovered = true
+end)
+sng_progress:connect_signal('mouse::leave', function()
+    is_prog_hovered = false
+end)
 sng_progress:connect_signal('property::value', function(_, value)
-    playerctl:set_position(value)
+    if is_prog_hovered then
+        playerctl:set_position(value)
+    end
 end)
 
 -- Playback Controls
@@ -113,7 +124,7 @@ local icon_loop = wibox.widget {
 local ctrl_loop = helpers.mkbtn(icon_loop, beautiful.lbg, beautiful.blk)
 
 -- Volume control
-local is_hovered = false
+local is_vol_hovered = false
 local vol_bar = wibox.widget {
     {
         {
@@ -126,15 +137,15 @@ local vol_bar = wibox.widget {
                 handle_shape        = gears.shape.circle,
                 minimum             = 0,
                 maximum             = 100,
-                handle_width        = dash_size / 64,
-                bar_height          = dash_size / 128,
-                forced_height       = dash_size / 72,
+                handle_width        = dpi(dash_size / 64),
+                bar_height          = dpi(dash_size / 128),
+                forced_height       = dpi(dash_size / 72),
                 widget              = wibox.widget.slider
             },
             direction = "east",
             widget    = wibox.container.rotate
         },
-        margins = dash_size / 72,
+        margins = dpi(dash_size / 72),
         widget  = wibox.container.margin
     },
     bg      = beautiful.lbg,
@@ -151,10 +162,10 @@ vol_bar.slider:connect_signal('property::value', function(_, value)
     playerctl:set_volume(value / 100)
 end)
 vol_bar:connect_signal('mouse::enter', function()
-    is_hovered = true
+    is_vol_hovered = true
 end)
 vol_bar:connect_signal('mouse::leave', function()
-    is_hovered = false
+    is_vol_hovered = false
 end)
 
 -- Signals
@@ -191,7 +202,7 @@ playerctl:connect_signal("loop_status", function(_, loop_status)
     end
 end)
 playerctl:connect_signal("volume", function(_, volume, player_name)
-        vol_bar.value  = not is_hovered and volume
+        vol_bar.value  = not is_vol_hovered and volume
 end)
 
 -- Music Player
@@ -237,25 +248,25 @@ local function music()
                                     helpers.mkbtn(ctrl_prev, beautiful.lbg, beautiful.blk),
                                     helpers.mkbtn(ctrl_play, beautiful.lbg, beautiful.blk),
                                     helpers.mkbtn(ctrl_next, beautiful.lbg, beautiful.blk),
-                                    spacing = dash_size / 96,
+                                    spacing = dpi(dash_size / 96),
                                     layout  = wibox.layout.fixed.horizontal
                                 },
                                 nil,
                                 {
                                     ctrl_shff,
                                     ctrl_loop,
-                                    spacing = dash_size / 96,
+                                    spacing = dpi(dash_size / 96),
                                     layout  = wibox.layout.fixed.horizontal
                                 },
                                 layout  = wibox.layout.align.horizontal
                             },
-                            spacing = dash_size / 72,
+                            spacing = dpi(dash_size / 72),
                             layout  = wibox.layout.fixed.vertical
                         },
                         margins = {
-                            left   = dash_size / 72,
-                            right  = dash_size / 72,
-                            top    = dash_size / 24,
+                            left   = dpi(dash_size / 72),
+                            right  = dpi(dash_size / 72),
+                            top    = dpi(dash_size / 24),
                         },
                         widget  = wibox.container.margin
                     },
@@ -268,10 +279,10 @@ local function music()
                 },
                 layout = wibox.layout.stack
             },
-            spacing = dash_size / 72,
+            spacing = dpi(dash_size / 72),
             layout  = wibox.layout.fixed.horizontal
         },
-        forced_height = dash_size * 0.215,
+        forced_height = dpi(dash_size * 0.215),
         widget        = wibox.container.background
     }
 end

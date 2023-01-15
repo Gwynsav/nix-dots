@@ -1,3 +1,7 @@
+-------------
+-- Layouts --
+-------------
+
 -- Imports
 ----------
 local awful         = require('awful')
@@ -35,10 +39,10 @@ end)
 -- This is added ON TOP of the 'beautiful.useless_gap' value
 awful.screen.connect_for_each_screen(function(s)
     s.padding = {
-        left   = beautiful.useless_gap, 
-        right  = beautiful.useless_gap, 
-        top    = beautiful.useless_gap, 
-        bottom = beautiful.useless_gap
+        left   = outer_gaps - inner_gaps, 
+        right  = outer_gaps - inner_gaps, 
+        top    = outer_gaps - inner_gaps, 
+        bottom = outer_gaps - inner_gaps
     }
 end)
 
@@ -46,6 +50,6 @@ end)
 ------------------
 client.connect_signal("request::manage", function(c)
     c.shape = function(cr, w, h)
-        gears.shape.rounded_rect(cr, w, h, border_rad)
+        gears.shape.rounded_rect(cr, w, h, beautiful.border_radius)
     end
 end)

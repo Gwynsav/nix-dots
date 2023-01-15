@@ -4,6 +4,7 @@
 
 require('signals.volume')
 require('signals.network')
+--[[ require('signals.nm') ]]
 
 -- If the user has enabled bluetooth, then
 -- emit a status signal.

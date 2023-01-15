@@ -8,6 +8,7 @@ local awful     = require('awful')
 local beautiful = require('beautiful')
 local gears     = require('gears') 
 local wibox     = require('wibox') 
+local dpi       = beautiful.xresources.apply_dpi
 
 local helpers   = require('helpers')
 
@@ -81,15 +82,15 @@ local function qk_actions()
                 bluetoothctl and helpers.mkbtn(dash_bluetooth, beautiful.blk, beautiful.blu_d),
                 helpers.mkbtn(dash_audio, beautiful.blk, beautiful.cya_d),
                 helpers.mkbtn(dash_mic, beautiful.blk, beautiful.mag_d),
-                spacing = dash_size / 96,
+                spacing = dpi(dash_size / 96),
                 layout  = wibox.layout.flex.horizontal
             },
-            margins = dash_size / 72,
+            margins = dpi(dash_size / 72),
             widget  = wibox.container.margin
         },
         bg     = beautiful.lbg,
         shape  = helpers.mkroundedrect(),
-        forced_height = dash_size / 10,
+        forced_height = dpi(dash_size / 10),
         widget = wibox.container.background
     }
 end

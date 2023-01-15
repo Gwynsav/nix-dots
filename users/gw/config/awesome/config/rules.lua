@@ -1,3 +1,7 @@
+--------------
+-- WM Rules --
+--------------
+
 -- Imports
 ----------
 local awful     = require('awful')
@@ -49,7 +53,7 @@ ruled.client.connect_signal("request::rules", function()
         id         = "titlebars",
         rule_any   = { type = { "normal", "dialog" } },
         except_any = { class = { "feh", } },
-        properties = { titlebars_enabled = true      }
+        properties = { titlebars_enabled = title_enable }
     }
     -- App Rules
     ------------

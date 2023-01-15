@@ -6,6 +6,7 @@
 ----------
 local beautiful = require('beautiful')
 local wibox     = require('wibox') 
+local dpi       = beautiful.xresources.apply_dpi
 
 local helpers   = require('helpers')
 
@@ -24,7 +25,7 @@ local calendar_wdgt = wibox.widget {
         }
         local torender = flag == 'focus' and focus_widget or widget
         if flag == 'header' then
-            torender.font = ui_font .. dash_size / 64
+            torender.font = ui_font .. 0
         end
         local colors = {
             header  = beautiful.blu,
@@ -40,13 +41,13 @@ local calendar_wdgt = wibox.widget {
                     align  = "center",
                     widget = wibox.container.place
                 },
-                margins = flag == 'focus' and dash_size / 128 or 0, 
+                margins = flag == 'focus' and dpi(dash_size / 128) or 0, 
                 widget  = wibox.container.margin
             },
             fg     = color,
             bg     = flag == 'focus' and beautiful.blk or beautiful.bg_normal,
             shape  = helpers.mkroundedrect(),
-            forced_width = dash_size * 0.25,
+            forced_width = dpi(dash_width * 0.5),
             widget = wibox.container.background
         }
     end
@@ -67,8 +68,8 @@ local clock = wibox.widget {
             align  = "center",
             layout = wibox.container.place
         },
-        left   = dash_size / 64,
-        top    = dash_size / 72,
+        left   = dpi(dash_size / 64),
+        top    = dpi(dash_size / 72),
         widget = wibox.container.margin
     },
     {
@@ -85,8 +86,8 @@ local clock = wibox.widget {
             align  = "center",
             layout = wibox.container.place
         },
-        right  = dash_size / 64,
-        bottom = dash_size / 72,
+        right  = dpi(dash_size / 64),
+        bottom = dpi(dash_size / 72),
         widget = wibox.container.margin
     },
     layout = wibox.layout.stack
@@ -99,8 +100,10 @@ local function calendar()
         {
             {
                 calendar_wdgt,
-                right   = dash_size / 48,
-                top     = dash_size / 64,
+                left    = dpi(dash_size / 128),
+                top     = dpi(-dash_size / 128),
+                bottom  = dpi(dash_size / 128),
+                right   = dpi(dash_size / 64),
                 widget  = wibox.container.margin
             },
             {
@@ -109,26 +112,36 @@ local function calendar()
                         clock,
                         {
                             {
-                                format = "%a %d,\n%Y",
+                                format = "%a %d\n",
                                 align  = "center",
                                 widget = wibox.widget.textclock
                             },
                             fg     = beautiful.gry,
                             widget = wibox.container.background
                         },
-                        layout = wibox.layout.align.vertical
+                        {
+                            {
+                                format = "<b>%b</b>\n%Y",
+                                font   = ui_font .. dash_size / 64,
+                                align  = "center",
+                                widget = wibox.widget.textclock
+                            },
+                            fg     = beautiful.wht,
+                            widget = wibox.container.background
+                        },
+                        layout = wibox.layout.fixed.vertical
                     },
                     align  = "center",
                     widget = wibox.container.place
                 },
                 bg     = beautiful.lbg,
                 shape  = helpers.mkroundedrect(),
-                forced_width = dash_size * 0.08,
+                forced_width = dpi(dash_size * 0.08),
                 widget = wibox.container.background
             },
             layout = wibox.layout.fixed.horizontal
         },
-        forced_height = dash_size / 4,
+        forced_height = dpi(dash_size * 0.245),
         widget = wibox.container.background
     }
 end
