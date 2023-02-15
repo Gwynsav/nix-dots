@@ -24,6 +24,12 @@
 				user_pref("gfx.webrender.all", true);
 				user_pref("svg.context-properties.content.enabled", true);
 				user_pref("browser.startup.homepage", "gwynsav.github.io/Bento");
+				user_pref("browser.firefox-view.feature-tour", false);
+				user_pref("browser.firefox-view.view-count", false);
+				user_pref("browser.tabs.firefox-view", false);
+				user_pref("browser.tabs.firefox-view.logLevel", false);
+				user_pref("services.sync.prefs.sync.browser.firefox-view.feature-tour", false);
+				user_pref("browser.theme.content-theme", 2);
 
 				user_pref("doh-rollout.disable-heuristics", true);
 				user_pref("dom.security.https_only_mode", true);
@@ -39,6 +45,8 @@
 				user_pref("signon.generation.enabled", false);
 				user_pref("signon.rememberSignons", false);
 
+				user_pref("layout.spellcheckDefault", 0);
+				user_pref("browser.dataFeatureRecommendations.enabled", false);
 				user_pref("privacy.donottrackheader.enabled", true);
 				user_pref("privacy.history.custom", true);
 				user_pref("privacy.purge_trackers.date_in_cookie_database", 0);

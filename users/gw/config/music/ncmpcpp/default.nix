@@ -27,7 +27,8 @@
       statusbar_visibility      = false;
       header_visibility         = false;
       titles_visibility         = false;
-      progressbar_look          = "▂▂▂";
+      # progressbar_look          = "▂▂▂";
+      progressbar_look          = "‎‎‎";
       progressbar_color         = "black";
       progressbar_elapsed_color = "yellow";
       song_status_format        = "$7%t";

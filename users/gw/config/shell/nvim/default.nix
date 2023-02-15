@@ -8,6 +8,7 @@ with colors; {
     plugins       = with pkgs.vimPlugins; [
       ## utils
       # basics
+      packer-nvim
       nvim-treesitter
       vim-polyglot
       # commenting
@@ -24,10 +25,12 @@ with colors; {
       lualine-nvim
       nvim-colorizer-lua
       nvim-tree-lua
+      nvim-web-devicons
 
       ## colorschemes
       catppuccin-nvim
       everforest
+      gruvbox-nvim
       tokyonight-nvim
     ];
     extraConfig   = import ./config.nix { inherit colors; };

@@ -17,11 +17,11 @@
     commands = {
       open      = "&{{
             case $(file --mime-type -Lb $f) in
-                */gif)   mpv $fx     ;;
-                */pdf)   zathura $fx ;;
-                audio/*) mpv $fx     ;;
-                video/*) mpv $fx     ;;
-                image/*) feh --zoom fill --scale-down -g 1066x600 $fx ;;
+                */gif)   mpv '$fx'     ;;
+                */pdf)   zathura '$fx' ;;
+                audio/*) mpv '$fx'     ;;
+                video/*) mpv '$fx'     ;;
+                image/*) feh --zoom fill --scale-down -g 1066x600 '$fx' ;;
                 *) for f in $fx; do $OPENER $f > /dev/null 2> /dev/null & done;;
             esac
         }}

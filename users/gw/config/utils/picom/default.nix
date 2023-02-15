@@ -2,7 +2,7 @@
 # -- Compositor Configuration -- #
 # ------------------------------ #
 
-{ pkgs, colors, ... }:
+{ colors, ... }:
 
 {
   services.picom = {
@@ -13,6 +13,7 @@
     shadow    = true;
     shadowExclude = [ 
       "class_g *?= 'slop'"
+      "name = 'hacksaw'"
       "_GTK_FRAME_EXTENTS@:c"
     ];
 
@@ -30,7 +31,11 @@
 
       # Fancy shadows
       shadow-radius        = 20;
-      shadow-color         = "${nbg}";
+      shadow-color         = "${colors.dbg}";
+
+      # :)
+      vSync                = true;
+      animations           = true;
     };
 
     wintypes  = {

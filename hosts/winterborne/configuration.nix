@@ -2,39 +2,36 @@
 # -- desktop configuration file -- #
 # -------------------------------- #
 
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   networking.hostName = "winterborne";
 
   # Packages
   # --------
-  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
+  boot.kernelPackages = pkgs.unstable.linuxPackages_zen;
   environment = {
-    systemPackages = with pkgs; [
-      openrgb
-      piper
-      heroic
-      steam
-      protonup
-    ];
+    systemPackages = lib.attrValues {
+      inherit (pkgs.stable)
+        piper;
+
+      inherit (pkgs.unstable)
+        openrgb
+        heroic
+        steam
+        protonup-ng;
+    };
     sessionVariables = rec {
       # This is where custom Proton versions go.
       STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
     };
   };
 
-  # Drivers and Login
-  # -----------------
+  # Drivers 
+  # -------
   services.xserver = {
     videoDrivers = [ "nvidia" ];
-    displayManager = {
-      autoLogin = {
-        enable  = true;
-        user    = "gw";
-        timeout = 0;
-      };
-      lightdm.greeter = false;
+    dpi          = 96;
   };
   hardware.opengl = {
     enable          = true;

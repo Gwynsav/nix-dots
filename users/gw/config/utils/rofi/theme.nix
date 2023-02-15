@@ -28,7 +28,7 @@ with colors; {
     background-image  = mkLiteral "@img";
     expand            = false;
     border-radius     = mkLiteral "0px 0px 8px 8px";
-    padding           = mkLiteral "8% 1.5% 8% 18.25%";
+    padding           = mkLiteral "13% 1.5% 3% 18.25%";
   };
   "#prompt"   = {
     enabled           = false;

@@ -10,24 +10,50 @@ with colors; ''
 
   -- Plugins Setup
   ----------------
-  -- Commenting
-  require('nvim-treesitter.configs').setup({
-    context_commentstring = { enable = true, enable_autocmd = false }
-  })
-  require('Comment').setup({
-      pre_hook = function(ctx)
-          local U = require('Comment.utils') local location = nil
-          if ctx.ctype == U.ctype.block then
-              location = require('ts_context_commentstring.utils').get_cursor_location()
-          elseif ctx.cmotion == U.cmotion.v or ctx.cmotion == U.cmotion.V then
-              location = require('ts_context_commentstring.utils').get_visual_start_location()
-          end
-          return require('ts_context_commentstring.internal').calculate_commentstring {
-              key = ctx.ctype == U.ctype.line and '__default' or '__multiline',
-              location = location
-          }
-      end
-  })
+  -- Extra plugins not in NixOS's repos
+  require('packer').startup(function() 
+    use { 'Everblush/everblush.nvim', as = 'everblush',
+      require('everblush').setup({
+        nvim_tree = { contrast = true }
+      })
+    }
+    use { 'neanias/everforest-nvim',
+      require('everforest').setup()
+    }
+    use 'altercation/solarized'
+  end)
+
+  -- Colorscheme Handling
+  -- Everforest
+  if "${theme}" == "everforest" then
+    vim.cmd[[set background=dark]]
+    vim.cmd[[colorscheme everforest]]
+  -- Catppuccin
+  elseif "${theme}" == "catppuccin" then
+    require('catppuccin').setup({
+      flavour                = "macchiato",
+      transparent_background = true,
+      term_colors            = true,
+    })
+    vim.cmd[[colorscheme catppuccin]]
+  -- Tokyonight
+  elseif "${theme}" == "tokyonight" then
+    vim.cmd[[colorscheme tokyonight-moon]]
+  -- Everblush
+  elseif "${theme}" == "everblush" then
+    vim.cmd[[colorscheme everblush]]
+  -- Gruvbox (light)
+  elseif "${theme}" == "gruvbox" then
+    vim.o.background = "light"
+    vim.cmd[[colorscheme gruvbox]]
+  -- Solarized (light)
+  elseif "${theme}" == "solarized_light" then
+    vim.o.background = "light"
+    vim.cmd[[colorscheme solarized]]
+  -- Asabay (mine)
+  elseif "${theme}" == "asabay"
+    vim.cmd[[colorscheme tokyonight-day]]
+  end
 
   -- Completion
   local cmp = require('cmp')
@@ -56,23 +82,6 @@ with colors; ''
     sources = { { name = 'buffer' } }
   })
 
-  -- Colorscheme Handling
-  if "${theme}" == "everforest" then
-    vim.cmd[[set background=dark]]
-    vim.cmd[[let g:everforest_background = 'hard']]
-    vim.cmd[[let g:everforest_better_performance = 1]]
-    vim.cmd[[colorscheme everforest]]
-  elseif "${theme}" == "catppuccin" then
-    require("catppuccin").setup({
-      flavour                = "macchiato",
-      transparent_background = true,
-      term_colors            = true,
-    })
-    vim.cmd[[colorscheme catppuccin]]
-  elseif "${theme}" == "tokyonight" then
-    vim.cmd[[colorscheme tokyonight-moon]]
-  end
-
   -- Bling
   require('colorizer').setup()
   require('lualine').setup({
@@ -100,6 +109,25 @@ with colors; ''
     },
     renderer = { group_empty = true },
     filters  = { dotfiles = true }
+  })
+
+  -- Commenting
+  require('nvim-treesitter.configs').setup({
+    context_commentstring = { enable = true, enable_autocmd = false }
+  })
+  require('Comment').setup({
+      pre_hook = function(ctx)
+          local U = require('Comment.utils') local location = nil
+          if ctx.ctype == U.ctype.block then
+              location = require('ts_context_commentstring.utils').get_cursor_location()
+          elseif ctx.cmotion == U.cmotion.v or ctx.cmotion == U.cmotion.V then
+              location = require('ts_context_commentstring.utils').get_visual_start_location()
+          end
+          return require('ts_context_commentstring.internal').calculate_commentstring {
+              key = ctx.ctype == U.ctype.line and '__default' or '__multiline',
+              location = location
+          }
+      end
   })
 
   -- Settings

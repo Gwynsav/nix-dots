@@ -2,17 +2,18 @@
 # -- laptop configuration file -- #
 # ------------------------------- #
 
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   networking.hostName = "fakeflake";
 
   # Packages
   # --------
-  boot.kernelPackages = pkgs.linuxPackages_zen;
-  environment.systemPackages = with pkgs; [
-    brightnessctl
-  ];
+  boot.kernelPackages = pkgs.stable.linuxPackages_zen;
+  environment.systemPackages = lib.attrValues {
+    inherit (pkgs.stable)
+      brightnessctl;
+  };
 
   # Power
   # -----

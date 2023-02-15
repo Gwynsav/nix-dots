@@ -13,7 +13,9 @@
     dotDir                   = ".config/zsh";
 
     shellAliases = {
-      "sudo" = "doas";
+      sudo     = "doas";
+      ls       = "exa -l";
+      nix-pkgs = "nix --extra-experimental-features 'nix-command flakes' search nixpkgs";
     };
     history   = {
       expireDuplicatesFirst = true;
