@@ -44,9 +44,9 @@
             picom   = picom-dccsillag;
             wezterm = wezterm-git;
           }) // {
-            master      = import master   { inherit config system; };
-            stable      = import stable   { inherit config system; };
-            unstable    = import unstable { inherit config system; };
+            master   = import master   { inherit config system; };
+            stable   = import stable   { inherit config system; };
+            unstable = import unstable { inherit config system; };
           }
         )
         neovim-nightly-overlay.overlay

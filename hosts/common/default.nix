@@ -14,9 +14,6 @@
         enable      = true;
         version     = 2;
         device      = "nodev";
-        # Custom entries for dualbooting.
-        useOSProber = true;
-        efiSupport  = true;
         extraEntries = ''
           menuentry "UEFI BIOS" --id 'uefi-firmware' {
             fwsetup
@@ -36,8 +33,6 @@
         canTouchEfiVariables = true;
         efiSysMountPoint     = "/boot";
       };
-      # Infinite grub timeout.
-      timeout       = null;
     };
   };
 
@@ -102,10 +97,6 @@
         mouse.accelProfile = "flat";
       };
       displayManager  = {
-        # lightdm = {
-        #   enable      = true;
-        #   background  = ./stuff/lightdm_bg.png;
-        # };
         sddm.enable    = true;
         defaultSession = "none+awesome";
       };
@@ -159,21 +150,19 @@
     systemPackages = lib.attrValues {
       inherit (pkgs.stable)
         # languages/compilers
-        cmake gcc lua
+        gnumake cmake gcc lua
         # utils
-        git wget unzip exa 
+        git wget unzip exa asciidoctor ffmpeg
         # screenshooting
         shotgun hacksaw xclip
         # misc
         libnotify pulseaudio
         home-manager virt-manager;
-
-      inherit (pkgs.unstable)
-        emacs
-        hilbish;
-    } ++ [ (lib.hiPrio pkgs.stable.procps) ];
-    binsh  = "${pkgs.bash}/bin/bash";
-    shells = [ "${pkgs.unstable.hilbish}/bin/hilbish" ];
+    } ++ [
+      (lib.hiPrio pkgs.stable.procps)
+    ];
+    binsh  = "${pkgs.stable.bash}/bin/bash";
+    shells = [ "${pkgs.stable.bash}/bin/bash" ];
     shellAliases = {
       sudo     = "doas";
       ls       = "exa -l";
@@ -181,9 +170,11 @@
       nix-pkgs = "nix --extra-experimental-features 'nix-command flakes' search nixpkgs";
     };
     variables = {
-      EDITOR  = "${pkgs.emacs}/bin/emacs";
-      VISUAL  = "${pkgs.emacs}/bin/emacs";
-      BROWSER = "${pkgs.firefox}/bin/firefox";
+      SHELL   = "${pkgs.unstable.bash}/bin/bash";
+      EDITOR  = "${pkgs.unstable.emacs}/bin/emacs";
+      VISUAL  = "${pkgs.unstable.emacs}/bin/emacs";
+      BROWSER = "${pkgs.stable.firefox}/bin/firefox";
+      WEBKIT_DISABLE_COMPOSITING_MODE = "1";
     };
   };
 
@@ -201,22 +192,19 @@
   fonts = {
     fonts = lib.attrValues {
       # It's convenient to install fonts as unstable packages.
-      # Some of them aren't available on the stable channel.
+      # Some of them, like `eb-garamond` aren't available on the stable channel.
       inherit (pkgs.unstable)
-        roboto
-        fira-code
-        eb-garamond
+        ibm-plex
         material-icons
         noto-fonts-emoji-blob-bin;
-    } ++ [( pkgs.stable.nerdfonts.override { fonts = [ "CascadiaCode" ]; } )];
+    } ++ [( pkgs.stable.nerdfonts.override { fonts = [ "FiraCode" ]; } )];
     fontconfig = {
-      enable        = true;
-      defaultFonts  = {
-        serif     = [ "EB Garamond" ];
-        sansSerif = [ "Roboto" ];
+      enable       = true;
+      defaultFonts = {
+        sansSerif = [ "IBM Plex Sans" ];
+        serif     = [ "IBM Plex Serif" "FiraCode Nerd Font" ];
+        monospace = [ "IBM Plex Mono" ];
         emoji     = [ "Blobmoji" ];
-        # CascadiaCode has a very weird fc name.
-        monospace = [ "Fira Code" ];
       };
     };
   };
